@@ -1,1 +1,55 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
+@source "../../../public/*.html";
+@source "../../../app/helpers/**/*.rb";
+@source "../../../app/javascript/**/*.js";
+@source "../../../app/views/**/*";
+
+@plugin "daisyui" {
+
+   themes: cupcake --default, coffee;
+
+ }
+
+
+@plugin "daisyui/theme" {
+  name: "violet-cupcake";
+  default: true;
+
+  --color-primary: #a78bfa;
+  --color-primary-focus: #7c3aed;
+  --color-primary-content: #f8fafc;
+
+  --color-secondary: #7c3aed;
+  --color-secondary-focus: #6d28d9;
+  --color-secondary-content: #ede9fe;
+
+  --color-accent: #f472b6;
+  --color-accent-focus: #be185d;
+  --color-accent-content: #fff1f2;
+
+  --color-neutral: #18181b;
+  --color-neutral-focus: #27272a;
+  --color-neutral-content: #e0e7ff;
+
+
+  --color-base-100: #18181b;
+  --color-base-200: #232136;
+  --color-base-300: #312e81;
+  --color-base-content: #f8fafc;
+
+
+  --color-info: #818cf8;
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-error: #f87171;
+
+
+  --rounded-box: 1.5rem;
+  --rounded-btn: 1.25rem;
+  --rounded-badge: 1.9rem;
+  --animation-btn: 0.25s;
+  --animation-input: 0.2s;
+  --btn-focus-scale: 0.95;
+  --border-btn: 0px;
+  --tab-radius: 0.7rem;
+}
