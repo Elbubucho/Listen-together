@@ -1,0 +1,7 @@
+<% unless !comment.persisted? %>
+  <div class="card">
+      <ul class="list-group">
+          <li class="list-group-item"><strong><%= comment.user.username.downcase %></strong>: <%= comment.content %></li>
+      </ul>
+  </div>
+<% end %>
