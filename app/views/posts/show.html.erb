@@ -4,9 +4,15 @@
     <img src="<%= @post.cover_url %>" alt="" >
   </div>
 
-  <%# <h2>Check out this awesome track!</h2> %>
 
-  <%# <%= button_to "💗", post_reactions_path(@post), method: :post %>
+<div>
+  <img src="<%= @post.cover_url %>" alt="" >
+</div>
+
+<h2>Check out this awesome track!</h2>
+
+<%= render partial: "reactions/button", locals: { post: @post } %>
+
   <h2><strong>Comments</strong></h2>
   <%= render @post.comments %>
 
