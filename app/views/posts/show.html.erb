@@ -6,7 +6,7 @@
 
 <h2>Check out this awesome track!</h2>
 
-<%= button_to "💗", post_reactions_path(@post), method: :post %>
+<%= render partial: "reactions/button", locals: { post: @post } %>
 
 <h3>Leave a comment...</h3>
 
