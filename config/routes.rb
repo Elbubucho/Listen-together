@@ -3,5 +3,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   root "posts#index"
-  resources :posts, only: [:show]
+  resources :posts, only: [:show, :new, :create]
+
+  get 'tracks/autocomplete', to: 'posts#autocomplete'
 end
