@@ -5,8 +5,9 @@
     </figure>
     <div class="flex flex-col items-center text-center flex-1">
       <h1 class="card-title text-3xl font-bold mb-2">
-        <%= @post.user.username %>'s <%= @post.mood %> mood
+        <%= link_to @post.user.username, user_path(@post.user) %>'s <br>
       </h1>
+      <h2>  <%= @post.mood %> mood </h2>
       <h2 class="text-xl mb-4"><%= @post.content %></h2>
         <%= render partial: "reactions/button", locals: { post: @post, reaction: @reaction } %>
     </div>
