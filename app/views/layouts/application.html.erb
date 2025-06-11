@@ -11,8 +11,11 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-base-200"><%= render 'shared/flashes' %>
-
+  <body class="bg-base-100">
+    <% unless devise_controller? && (controller_name == 'sessions' || controller_name == 'registrations') %>
+      <%= render "shared/navbar" %>
+    <% end %>
+    <%= render 'shared/flashes' %>
     <%= yield %>
   </body>
 </html>

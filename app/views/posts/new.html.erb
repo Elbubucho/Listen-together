@@ -1,4 +1,22 @@
-<div>
-  <h1 class="font-bold text-4xl">Posts#new</h1>
-  <p>Find me in app/views/posts/new.html.erb</p>
+<div class="flex items-center justify-center bg-base-100 my-15">
+  <div class="flex flex-col gap-6">
+    <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+      <legend class="fieldset-legend">Make a post</legend>
+        <%= simple_form_for @post, data: { controller: "track-select" } do |f| %>
+        <%= f.input :mood, as: :select, collection: Post::MOODS %>
+        <%= f.input :content, label: "Say something about your mood (optionnal)", input_html: {class:"resize-none mb-3"} %>
+
+
+        <%= f.label :track_search, "Choisis une musique" %>
+        <input type="text" class="input input-bordered w-80 max-w-full mb-5" data-track-select-target="input" placeholder="Tape un titre ou artiste..." />
+
+        <ul id="track-results" data-track-select-target="results"></ul>
+
+        <%= f.input :track_id, as: :hidden, input_html: { data: { track_select_target: "iframe" } } %>
+        <%= f.input :cover_url, as: :hidden, input_html: { data: { track_select_target: "cover" } } %>
+        <%= f.button :submit, "Publier", class: "btn btn-primary w-80" %>
+      <% end %>
+
+    </fieldset>
+ </div>
 </div>
