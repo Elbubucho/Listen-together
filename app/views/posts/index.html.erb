@@ -1,0 +1,21 @@
+
+<div class="min-h-screen flex items-center justify-center bg-base-100 my-25">
+  <div class="flex flex-col gap-6">
+    <% if @posts.any? %>
+    <% @posts.order(id: :desc).each do |post| %>
+      <div class="card w-96 bg-base-200 shadow-xl">
+        <div class="card-body items-center text-center">
+          <p class="mb-4"><%= post.content %></p>
+            <iframe src="https://open.spotify.com/embed/track/<%= post.track_id %>"
+                    width="300" height="80" frameborder="0"
+                    allowtransparency="true" allow="encrypted-media">
+                    </iframe>
+          <div class="card-actions justify-end w-full mt-4">
+            <button class="btn btn-primary">Commenter</button>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  </div>
+</div>
