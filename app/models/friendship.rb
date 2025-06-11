@@ -2,8 +2,6 @@ class Friendship < ApplicationRecord
   belongs_to :asker, class_name: "User"
   belongs_to :receiver, class_name: "User"
 
-  validates :asker, presence: true
-  validates :receiver, presence: true
   validates :asker_id, uniqueness: { scope: :receiver_id }
   validate :asker_and_receiver_cannot_be_the_same
 

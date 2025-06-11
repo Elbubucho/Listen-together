@@ -13,6 +13,7 @@
                     allowtransparency="true" allow="encrypted-media">
                     </iframe>
           <div class="card-actions justify-end w-full mt-4">
+            <%= render partial: "reactions/button", locals: { post: post } %>
             <%= link_to "Comment",  post_path(post.id), class: "btn btn-primary" %>
           </div>
         </div>

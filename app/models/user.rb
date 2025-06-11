@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+
   has_many :posts, dependent: :destroy
   has_many :reactions, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -7,6 +8,10 @@ class User < ApplicationRecord
 
   has_many :friendships_as_asker, class_name: "Friendship", foreign_key: :asker_id, dependent: :destroy
   has_many :friendships_as_receiver, class_name: "Friendship", foreign_key: :receiver_id, dependent: :destroy
+
+  validates :username, presence: true, uniqueness: true
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
 
   def friends
   User.where(id: friendships_as_asker.where(confirmed: true).select(:receiver_id))
@@ -20,8 +25,4 @@ class User < ApplicationRecord
   def pending_friend_requests_received
   friendships_as_receiver.where(confirmed: false).includes(:asker).map(&:asker)
   end
-
-  validates :username, presence: true, uniqueness: true
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
 end
