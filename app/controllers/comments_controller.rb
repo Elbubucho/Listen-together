@@ -1,6 +1,10 @@
 class CommentsController < ApplicationController
   before_action :set_post, only: %i[new create]
 
+  def show
+    @comment = Comment.find(params[:id])
+  end
+
   def new
     @comment = Comment.new
   end
@@ -12,7 +16,9 @@ class CommentsController < ApplicationController
       redirect_to  post_path(@post)
     else
       render :new, status: :unprocessable_entity
+    end
   end
+
 
   private
 
