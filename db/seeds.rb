@@ -17,8 +17,6 @@ puts "Utilisateurs créés"
 
 emma = User.find_by(username: "Emma")
 elisa = User.find_by(username: "Elisa")
-valentin = User.find_by(username: "Valentin")
-nicolas = User.find_by(username: "Nicolas")
 
 spotify_tracks = [
   "0d28khcov6AiegSCpG5TuT",
@@ -30,7 +28,7 @@ spotify_tracks = [
 
 post1 = Post.create!(
   content: "Post 1 sur une super musique !",
-  mood: ["😊", "😢", "🤩", "😎", "😡"].sample,
+  mood: ["😊 Happy", "😢 Sad", "🤩 Excited", "😎 Cool", "😡 Angry"].sample,
   cover_url: "https://www.emp-online.fr/dw/image/v2/BBQV_PRD/on/demandware.static/-/Sites-master-emp/default/dw4270ad56/images/4/2/2/8/422893.jpg?sw=1000&sh=800&sm=fit&sfrm=png",
   track_id: spotify_tracks[0],
   user: emma
@@ -38,34 +36,10 @@ post1 = Post.create!(
 
 post2 = Post.create!(
   content: "Post 2 sur une super musique !",
-  mood: ["😊", "😢", "🤩", "😎", "😡"].sample,
+  mood: ["😊 Happy", "😢 Sad", "🤩 Excited", "😎 Cool", "😡 Angry"].sample,
   cover_url: "https://www.emp-online.fr/dw/image/v2/BBQV_PRD/on/demandware.static/-/Sites-master-emp/default/dw4270ad56/images/4/2/2/8/422893.jpg?sw=1000&sh=800&sm=fit&sfrm=png",
   track_id: spotify_tracks[1],
   user: elisa
-)
-
-post3 = Post.create!(
-  content: "Post 3 sur une super musique !",
-  mood: ["😊", "😢", "🤩", "😎", "😡"].sample,
-  cover_url: "https://www.emp-online.fr/dw/image/v2/BBQV_PRD/on/demandware.static/-/Sites-master-emp/default/dw4270ad56/images/4/2/2/8/422893.jpg?sw=1000&sh=800&sm=fit&sfrm=png",
-  track_id: spotify_tracks[2],
-  user: valentin
-)
-
-post4 = Post.create!(
-  content: "Post 4 sur une super musique !",
-  mood: ["😊", "😢", "🤩", "😎", "😡"].sample,
-  cover_url: "https://www.emp-online.fr/dw/image/v2/BBQV_PRD/on/demandware.static/-/Sites-master-emp/default/dw4270ad56/images/4/2/2/8/422893.jpg?sw=1000&sh=800&sm=fit&sfrm=png",
-  track_id: spotify_tracks[3],
-  user: nicolas
-)
-
-post5 = Post.create!(
-  content: "Post 5 sur une super musique !",
-  mood: ["😊", "😢", "🤩", "😎", "😡"].sample,
-  cover_url: "https://www.emp-online.fr/dw/image/v2/BBQV_PRD/on/demandware.static/-/Sites-master-emp/default/dw4270ad56/images/4/2/2/8/422893.jpg?sw=1000&sh=800&sm=fit&sfrm=png",
-  track_id: spotify_tracks[4],
-  user: emma
 )
 
 puts "posts créés"
@@ -83,23 +57,4 @@ Comment.create!(
   user: User.all.sample,
   post: post2
 )
-
-Comment.create!(
-  content: "J'écoute ça tous les jours.",
-  user: User.all.sample,
-  post: post3
-)
-
-Comment.create!(
-  content: "Pas mal",
-  user: User.all.sample,
-  post: post4
-)
-
-Comment.create!(
-  content: "J'adore tes goûts !",
-  user: User.all.sample,
-  post: post5
-)
-
 puts "commentaires créés"

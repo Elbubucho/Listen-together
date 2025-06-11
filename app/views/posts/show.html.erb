@@ -1,26 +1,26 @@
-<div class="card">
-  <h1><%= @post.user.username %>'s <%= @post.mood %> mood</h1>
-    <p><%= @post.content %></p>
-    <img src="<%= @post.cover_url %>" alt="" >
+<div class="flex items-center justify-center min-h-screen bg-base-100 my-25">
+  <div class="card w-full max-w-3xl h-[700px] md:h-[800px] bg-base-200 shadow-xl flex flex-col">
+    <figure class="flex-shrink-0">
+      <img src="<%= @post.cover_url %>" alt="cover" class="object-contain w-full h-72 md:h-96 pt-5"/>
+    </figure>
+    <div class="flex flex-col items-center text-center flex-1">
+      <h1 class="card-title text-3xl font-bold mb-2">
+        <%= @post.user.username %>'s <%= @post.mood %> mood
+      </h1>
+      <h2 class="text-xl mb-4"><%= @post.content %></h2>
+        <%= render partial: "reactions/button", locals: { post: @post } %>
+    </div>
   </div>
-
-
-<div>
-  <img src="<%= @post.cover_url %>" alt="" >
 </div>
 
-<h2>Check out this awesome track!</h2>
+<div class="flex flex-col items-center justify-center px-4 py-6 max-w-3xl mx-auto">
+  <h3 class="text-2xl font-semibold mb-4">Leave a comment...</h3>
 
-<%= render partial: "reactions/button", locals: { post: @post } %>
-
-  <h2><strong>Comments</strong></h2>
-  <%= render @post.comments %>
-
-  <br>
-
-  <%= simple_form_for [@post, @comment] do |f| %>
+    <%= simple_form_for [@post, @comment] do |f| %>
     <%= f.input :content, label: false, placeholder: 'Leave a comment' %>
     <%= f.submit "Send", class: "btn btn-primary" %>
   <% end %>
-
+  
+  <h2 class="text-xl font-bold mt-8 mb-4">Comments</h2>
+  <%= render @post.comments %>
 </div>
