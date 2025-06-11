@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   root to: "pages#home"
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -11,5 +12,7 @@ Rails.application.routes.draw do
   # root "posts#index"
   # resources :posts do
   # end
-  resources :comments, only: [:new, :create, :show]
+  resources :posts do
+    resources :comments, only: [:new, :create, :show]
+  end
 end
