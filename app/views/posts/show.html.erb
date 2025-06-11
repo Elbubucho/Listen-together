@@ -1,0 +1,23 @@
+<h1><%= @post.user.username %>' mood</h1>
+
+<div>
+  <img src="<%= @post.cover_url %>" alt="" >
+</div>
+
+<h2>Check out this awesome track!</h2>
+
+<%= render partial: "reactions/button", locals: { post: @post } %>
+
+<h3>Leave a comment...</h3>
+
+<%= form_with(model: [@post, Comment.new], local: true) do |form| %>
+  <%= form.text_area :content, placeholder: "Write something" %><br>
+  <%= form.submit "send" %>
+<% end %>
+
+<h2>Comments</h2>
+<ul>
+   <% @post.comments.each do |comment| %>
+    <li><strong><%= comment.user.email %> :</strong> <%= comment.content %></li>
+  <% end %>
+</ul>
