@@ -1,6 +1,6 @@
 <turbo-frame id="reaction_button_<%= post.id %>">
-  <% if post.reactions.exists?(user: current_user) %>
-    <%= button_to post_reaction_path(post),
+  <% if reaction = post.reactions.find_by(user: current_user) %>
+    <%= button_to post_reaction_path(post, reaction),
                   method: :delete,
                   form: { data: { turbo_frame: "reaction_button_#{post.id}" } },
                   class: "text-xl transition hover:scale-110",
@@ -8,7 +8,7 @@
       ♥️ <span><%= post.reactions.count %></span>
     <% end %>
   <% else %>
-    <%= button_to post_reaction_path(post),
+    <%= button_to post_reactions_path(post),
                   method: :post,
                   form: { data: { turbo_frame: "reaction_button_#{post.id}" } },
                   class: "text-xl transition hover:scale-110",

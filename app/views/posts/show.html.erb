@@ -8,7 +8,7 @@
         <%= @post.user.username %>'s <%= @post.mood %> mood
       </h1>
       <h2 class="text-xl mb-4"><%= @post.content %></h2>
-        <%= render partial: "reactions/button", locals: { post: @post } %>
+        <%= render partial: "reactions/button", locals: { post: @post, reaction: @reaction } %>
     </div>
   </div>
 </div>
@@ -20,7 +20,7 @@
     <%= f.input :content, label: false, placeholder: 'Leave a comment' %>
     <%= f.submit "Send", class: "btn btn-primary" %>
   <% end %>
-  
+
   <h2 class="text-xl font-bold mt-8 mb-4">Comments</h2>
   <%= render @post.comments %>
 </div>
