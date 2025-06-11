@@ -12,7 +12,9 @@
   </head>
 
   <body class="bg-base-100">
-    <%= render "shared/navbar" %>
+    <% unless devise_controller? && (controller_name == 'sessions' || controller_name == 'registrations') %>
+      <%= render "shared/navbar" %>
+    <% end %>
     <%= render 'shared/flashes' %>
     <%= yield %>
   </body>
