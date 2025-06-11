@@ -8,7 +8,7 @@
         <%= @post.user.username %>'s <%= @post.mood %> mood
       </h1>
       <h2 class="text-xl mb-4"><%= @post.content %></h2>
-        <button class="btn btn-primary text-2xl">💗</button>
+        <%= render partial: "reactions/button", locals: { post: @post } %>
     </div>
   </div>
 </div>
@@ -16,14 +16,11 @@
 <div class="flex flex-col items-center justify-center px-4 py-6 max-w-3xl mx-auto">
   <h3 class="text-2xl font-semibold mb-4">Leave a comment...</h3>
 
-  <p>Form ici</p>
-
+    <%= simple_form_for [@post, @comment] do |f| %>
+    <%= f.input :content, label: false, placeholder: 'Leave a comment' %>
+    <%= f.submit "Send", class: "btn btn-primary" %>
+  <% end %>
+  
   <h2 class="text-xl font-bold mt-8 mb-4">Comments</h2>
-  <ul class="w-full space-y-3">
-    <% @post.comments.each do |comment| %>
-      <li class="border rounded p-3 bg-base-100 shadow-sm">
-        <strong><%= comment.user.username %> :</strong> <%= comment.content %>
-      </li>
-    <% end %>
-  </ul>
+  <%= render @post.comments %>
 </div>
