@@ -1,7 +1,7 @@
 <div class="max-w-md mx-auto p-6">
   <h1 class="text-xl font-bold mb-4">Modifier mon profil</h1>
 
-  <%= form_with model: @user, local: true, html: { multipart: truen} do |f| %>
+  <%= form_with model: @user, local: true, html: { multipart: true} do |f| %>
     <div class="mb-4">
       <%= f.label :avatar, "Upload un avatar" %>
       <%= f.file_field :avatar, class: "file-input file-input-bordered w-full" %>
