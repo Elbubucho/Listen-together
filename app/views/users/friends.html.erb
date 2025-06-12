@@ -1,15 +1,26 @@
 <div class="mt-30">
-<h1>Friend List</h1>
+  <ul class="list bg-base-100 rounded-box shadow-md">
 
-<% if @friends.any? %>
-  <ul>
-    <% @friends.each do |friend| %>
-      <li><%= link_to friend.username.capitalize, user_path(friend) %></li>
+    <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">Friend List</li>
+
+    <% if @friends.any? %>
+      <% @friends.each do |friend| %>
+        <li class="list-row flex items-center gap-4 p-4 border-t border-base-200">
+          <div>
+            <%= image_tag("https://img.daisyui.com/images/profile/demo/1@94.webp", class: "size-10 rounded-box") %>
+          </div>
+          <div>
+            <div>
+              <%= link_to friend.username.capitalize, user_path(friend), class: "font-semibold hover:underline" %>
+        </li>
+      <% end %>
+    <% else %>
+      <li class="p-4 text-sm text-center text-gray-500">You have no friends yet.</li>
     <% end %>
-  </ul>
-<% else %>
-  <p>You have no friends yet.</p>
-<% end %>
 
-<%= link_to "Back to your profile", user_path(current_user) %>
+  </ul>
+
+  <div class="mt-6">
+    <%= link_to "← Back to your profile", user_path(current_user), class: "btn btn-outline" %>
+  </div>
 </div>

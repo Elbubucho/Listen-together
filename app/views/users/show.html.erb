@@ -7,7 +7,7 @@
     <% elsif @existing_friendship.asker == current_user %>
       <span>Already added as friend</span>
     <% elsif @existing_friendship.receiver == current_user %>
-      <%= link_to "Accept as friend", friendship_path(@existing_friendship), data: {turbo_method: :patch} %>
+<%= link_to "Accept as friend", friendship_path(@existing_friendship), data: { turbo_method: :patch }, class: "btn btn-soft btn-primary" %>
     <% end %>
   <% end %>
 </div>
