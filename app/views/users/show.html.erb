@@ -13,10 +13,13 @@
 </div>
 
 <div class = "mt-10">
-  <%# <%= image_tag @user.avatar_url, alt: "Avatar" %>
+  <%= render "shared/avatar" %>
   <%= @user.username.capitalize%>
   <p><%= @user.posts.count %> posts <p>
   <p><%= @friends_count %> friends</p>
+  <% if @user.bio.present? %>
+    <p><%= @user.bio %></p>
+  <% end %>
 </div>
 
 <div>
