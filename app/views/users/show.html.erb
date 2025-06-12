@@ -1,4 +1,4 @@
-<div class="mt-20">
+<div>
   <%= link_to "Feed", root_path, class: "btn btn-primary" %>
 
   <% unless @is_own_profile %>
@@ -31,16 +31,15 @@
      <span><%= link_to "#{@friends_count} friends", friends_user_path(@user) %></span>
   </div>
 
-
   <div class = "flex justify-center gap-6 text-sm mt-2">
     <% if @user.bio.present? %>
       <p><%= @user.bio %></p>
     <% end %>
   </div>
 </div>
-  
+
 <div>
-   <div class="min-h-screen flex items-center justify-center bg-base-100 my-25">
+   <div class="min-h-screen flex items-center justify-center bg-base-100">
   <div class="flex flex-col gap-6">
     <% if @posts.any? %>
     <% @posts.order(id: :desc).each do |post| %>
