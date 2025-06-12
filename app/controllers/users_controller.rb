@@ -1,6 +1,19 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
 
+  def edit
+    @user = current_user
+  end
+
+  def update
+    @user = current_user
+    if @user.update(user_params)
+      redirect_to @user, notice: "Profil mis à jour."
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def friends
     @user = User.find(params[:id])
     if @user != current_user
@@ -33,5 +46,11 @@ class UsersController < ApplicationController
     @existing_friendship = Friendship.find_by(asker: current_user, receiver: @user) ||
                            Friendship.find_by(asker: @user, receiver: current_user)
 
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:username, :avatar_url, :bio)
   end
 end
