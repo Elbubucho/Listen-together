@@ -7,15 +7,14 @@
       <ul
         tabindex="0"
         class="menu menu-sm dropdown-content bg-base-200 rounded-box z-1 mt-5 w-52 p-2 shadow">
-        <li><a>My profil</a></li>
-        <%# J'ai mis des trucs un peu au pif, a définir %>
+        <li><%= link_to "My profil", user_path(current_user) %></li>
         <li><a>Settings</a></li>
-        <li><%= link_to "Log out", destroy_user_session_path(current_user), { turbo_method: :delete }%></li>
+        <li><%= button_to 'Sign out', destroy_user_session_path, method: :delete %></li>
       </ul>
     </div>
   </div>
   <div class="navbar-center">
-    <a class="btn btn-ghost text-xl">Listen Together</a>
+    <%= link_to "Listen Together", root_path, class: "btn btn-ghost text-xl" %>
   </div>
   <div class="navbar-end">
     <button class="btn btn-ghost btn-circle">

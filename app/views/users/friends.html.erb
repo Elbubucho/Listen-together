@@ -1,0 +1,13 @@
+<h1>Friend List</h1>
+
+<% if @friends.any? %>
+  <ul>
+    <% @friends.each do |friend| %>
+      <li><%= friend.username %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>You have no friends yet.</p>
+<% end %>
+
+<%= link_to "Back to your profile", user_path(current_user) %>
