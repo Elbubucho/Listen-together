@@ -1,13 +1,14 @@
 <div data-controller="previews">
-  <%= form.label :avatar, style: "display: block" %>
+  <%= form.label :avatar, "Upload avatar", style: "display: block" %>
   <%= form.file_field :avatar,
         direct_upload: true,
-        data: {previews_target: "input", action: "change->previews#preview"} %>
+        data: {previews_target: "input", action: "change->previews#preview"},
+        class:"file-input file-input-bordered w-75" %>
 
   <div class="avatar">
     <div class="w-20 rounded-full">
       <%= image_tag(current_user.avatar.attached? ? url_for(current_user.avatar) : "default_avatar.png",
-          data: {previews_target: "preview"}, class: "image-cover-preview") %>
+          data: {previews_target: "preview"}) %>
     </div>
   </div>
 </div>
