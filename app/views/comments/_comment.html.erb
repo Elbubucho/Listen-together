@@ -1,7 +1,29 @@
-<% unless !comment.persisted? %>
-  <div class="card">
-      <ul class="list-group">
-          <li class="list-group-item"><strong><%= comment.user.username.downcase %></strong>: <%= comment.content %></li>
-      </ul>
-  </div>
+<% post.comments.order(id: :desc).each do |comment| %>
+    <% next unless comment.persisted? %>
+    <li class="list-row border-b last:border-b-0">
+      <%= link_to user_path(comment.user), class: "block" do %>
+        <% if comment.user.avatar.attached? %>
+          <div class="avatar">
+            <div class="w-14 rounded-full">
+              <%= cl_image_tag comment.user.avatar.key %>
+            </div>
+          </div>
+        <% else %>
+          <div class="avatar">
+            <div class="w-14 rounded-full">
+              <%= image_tag "default_avatar.png" %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+      <div class="flex-1 min-w-0">
+        <div class="font-semibold truncate"><%= comment.user.username.capitalize %></div>
+        <p class="list-col-wrap text-xs">
+          <%= comment.content %>
+        </p>
+      </div>
+      <div class="p-4 pb-2 text-xs opacity-60 tracking-wide">
+        <%= time_ago_in_words(comment.created_at) %> ago
+      </div>
+    </li>
 <% end %>
