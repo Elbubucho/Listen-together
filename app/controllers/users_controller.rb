@@ -2,12 +2,13 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def friends
-    user = User.find(params[:id])
-    if user != current_user
-      render json: { error: "Access denied." }, status: :unauthorized
+    @user = User.find(params[:id])
+    if @user != current_user
+      redirect_to root_path, alert: "Access denied."
       return
     end
-    render json: user.friends
+
+    @friends = @user.friends
   end
 
   def friend_requests_sent
@@ -31,5 +32,6 @@ class UsersController < ApplicationController
 
     @existing_friendship = Friendship.find_by(asker: current_user, receiver: @user) ||
                            Friendship.find_by(asker: @user, receiver: current_user)
+
   end
 end

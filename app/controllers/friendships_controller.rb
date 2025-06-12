@@ -17,10 +17,11 @@ class FriendshipsController < ApplicationController
       return
     end
 
-    @friendship = current_user.friendships_as_asker.build(receiver: receiver)
+    @friendship = Friendship.create(asker: current_user, receiver: receiver)
 
     if @friendship.save
-      render json: { message: "Friend request sent." }, status: :created
+      redirect_to user_path(receiver)
+      flash[:notice] = "Friend request sent."
     else
       render json: { errors: @friendship.errors.full_messages }, status: :unprocessable_entity
     end
@@ -31,7 +32,8 @@ class FriendshipsController < ApplicationController
 
     if @friendship.receiver == current_user && !@friendship.confirmed?
       @friendship.update(confirmed: true)
-      render json: { message: "Friend request accepted." }
+      redirect_to user_path(@friendship.receiver)
+      flash[:notice] = "Friend request accepted."
     else
       render json: { error: "Not authorized or already accepted." }, status: :unauthorized
     end
