@@ -12,11 +12,25 @@
   <% end %>
 </div>
 
-<div class = "mt-10">
+<div class="mt-10 text-center">
   <%# <%= image_tag @user.avatar_url, alt: "Avatar" %>
-  <%= @user.username.capitalize%>
-  <p><%= @user.posts.count %> posts <p>
-  <p><%= @friends_count %> friends</p>
+  <% if @is_own_profile %>
+    <div class="flex justify-end mb-4">
+      <%= link_to "⚙️ Modifier mon profil", edit_user_path(@user), class: "btn btn-sm btn-primary" %>
+    </div>
+  <% end %>
+
+  <div class="text-center">
+
+    <h1 class="text-2xl font-bold">
+      <%= @user.username.capitalize %></span>
+    </h1>
+
+    <div class="flex justify-center gap-6 text-sm mt-2">
+      <span><%= @user.posts.count %> posts</span>
+      <span><%= @friends_count %> friends</span>
+    </div>
+  </div>
 </div>
 
 <div>
