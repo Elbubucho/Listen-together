@@ -5,7 +5,7 @@
     <% if @posts.any? %>
     <% @posts.order(id: :desc).each do |post| %>
       <div class="card w-96 bg-base-200 shadow-xl">
-          <%= link_to "#{post.user.username.capitalize}'s #{post.mood}", user_path(post.user) %></li>'s <%= post.mood %></legend>
+          <%= link_to "#{post.user.username.capitalize}'s #{post.mood}", user_path(post.user) %>'s <%= post.mood %>
         <div class="card-body items-center text-center">
           <p class="mb-4"><%= post.content %></p>
             <iframe src="https://open.spotify.com/embed/track/<%= post.track_id %>"
