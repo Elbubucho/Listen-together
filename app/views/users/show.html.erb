@@ -1,17 +1,16 @@
-<div>
+<div class="mt-20">
   <%= link_to "Feed", root_path, class: "btn btn-primary" %>
 
   <% unless @is_own_profile %>
     <% if @existing_friendship.nil? %>
-        <%= button_to "Add Friend", friendships_path(receiver_id: @user.id), method: :post %>
+        <%= link_to "Add as friend", friendships_path(receiver_id: @user.id), data: {turbo_method: :post}  %>
     <% elsif @existing_friendship.asker == current_user %>
-      <span>Friend request sent</span>
+      <span>Already added as friend</span>
     <% elsif @existing_friendship.receiver == current_user %>
-      <%= button_to "Add as friend", friendship_path(@existing_friendship), method: :patch %>
+      <%= link_to "Accept as friend", friendship_path(@existing_friendship), data: {turbo_method: :patch} %>
     <% end %>
   <% end %>
 </div>
-
 
 <div class="mt-10 text-center">
   <%= render "shared/avatar" %>
@@ -29,7 +28,7 @@
 
   <div class="flex justify-center gap-6 text-sm mt-2">
      <span><%= @user.posts.count %> posts</span>
-     <span><%= @friends_count %> friends</span>
+     <span><%= link_to "#{@friends_count} friends", friends_user_path(@user) %></span>
   </div>
 
 

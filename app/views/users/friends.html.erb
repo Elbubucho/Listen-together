@@ -1,9 +1,10 @@
+<div class="mt-30">
 <h1>Friend List</h1>
 
 <% if @friends.any? %>
   <ul>
     <% @friends.each do |friend| %>
-      <li><%= friend.username %></li>
+      <li><%= link_to friend.username.capitalize, user_path(friend) %></li>
     <% end %>
   </ul>
 <% else %>
@@ -11,3 +12,4 @@
 <% end %>
 
 <%= link_to "Back to your profile", user_path(current_user) %>
+</div>
