@@ -5,15 +5,6 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
-  def update
-    @user = current_user
-    if @user.update(user_params)
-      redirect_to @user, notice: "Profil mis à jour."
-    else
-      render :edit, status: :unprocessable_entity
-    end
-  end
-
   def friends
     user = User.find(params[:id])
     if user != current_user
