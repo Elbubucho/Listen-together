@@ -1,0 +1,29 @@
+<div class="max-w-md mx-auto p-6">
+  <h1 class="text-xl font-bold mb-4">Modifier mon profil</h1>
+
+  <%= form_with model: @user, local: true, html: { multipart: true} do |f| %>
+    <div class="mb-4">
+      <%= f.label :avatar, "Upload un avatar" %>
+      <%= f.file_field :avatar, class: "file-input file-input-bordered w-full" %>
+    </div>
+
+    <% if @user.avatar_url.attached? %>
+      <div class="mb-4 text-center">
+        <%= image_tag @user.avatar.variant(resize_to_fill: [100, 100]), class: "rounded-full mx-auto" %>
+        <p class="text-sm text-gray-500">Avatar actuel</p>
+      </div>
+    <% end %>
+
+    <div class="mb-4">
+      <%= f.label :username %>
+      <%= f.text_field :username, class: "input input-bordered w-full" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :bio %>
+      <%= f.text_area :bio, class: "textarea textarea-bordered w-full" %>
+    </div>
+
+    <%= f.submit "Enregistrer", class: "btn btn-primary" %>
+  <% end %>
+</div>

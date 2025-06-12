@@ -12,16 +12,34 @@
   <% end %>
 </div>
 
-<div class = "mt-10">
-  <%= render "shared/avatar" %>
-  <%= @user.username.capitalize%>
-  <p><%= @user.posts.count %> posts <p>
-  <p><%= @friends_count %> friends</p>
-  <% if @user.bio.present? %>
-    <p><%= @user.bio %></p>
-  <% end %>
-</div>
 
+<div class="mt-10 text-center">
+  <%= render "shared/avatar" %>
+  <% if @is_own_profile %>
+    <div class="flex justify-end mb-4">
+      <%= link_to "⚙️ Modifier mon profil", edit_user_path(@user), class: "btn btn-sm btn-primary" %>
+     </div>
+  <% end %>
+
+  <div class="text-center">
+
+  <h1 class="text-2xl font-bold">
+    <%= @user.username.capitalize %>
+  </h1>
+
+  <div class="flex justify-center gap-6 text-sm mt-2">
+     <span><%= @user.posts.count %> posts</span>
+     <span><%= @friends_count %> friends</span>
+  </div>
+
+
+  <div class = "flex justify-center gap-6 text-sm mt-2">
+    <% if @user.bio.present? %>
+      <p><%= @user.bio %></p>
+    <% end %>
+  </div>
+</div>
+  
 <div>
    <div class="min-h-screen flex items-center justify-center bg-base-100 my-25">
   <div class="flex flex-col gap-6">

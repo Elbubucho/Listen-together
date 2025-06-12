@@ -25,6 +25,6 @@ class User < ApplicationRecord
   end
 
   def pending_friend_requests_received
-  friendships_as_receiver.where(confirmed: false).includes(:asker).map(&:asker)
+    friendships_as_receiver.where(confirmed: false).includes(:asker).map(&:asker)
   end
 end
