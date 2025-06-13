@@ -1,6 +1,6 @@
 SimpleForm.setup do |config|
 
-  config.wrappers :default, tag: 'div', class: 'form-control', error_class: '', valid_class: '' do |b|
+  config.wrappers :default, tag: 'div', class: 'form-control mb-2', error_class: '', valid_class: '' do |b|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
@@ -8,9 +8,9 @@ SimpleForm.setup do |config|
     b.optional :pattern
     b.optional :min_max
     b.optional :readonly
-    b.use :label, class: "label-text"
+    b.use :label, class: "label-text text-sm ps-2"
     b.use :input, class: "input input-bordered w-full"
-    b.use :full_error, wrap_with: { tag: 'p', class: 'mt-2 text-sm text-red-600' }
+    b.use :full_error, wrap_with: { tag: 'p', class: 'text-xs text-red-600' }
     b.use :hint, wrap_with: { tag: :label, class: "label label-text-alt" }
   end
 
@@ -19,7 +19,7 @@ SimpleForm.setup do |config|
     b.optional :readonly
     b.use :label, class: 'label-text'
     b.use :input, class: 'radio'
-    b.use :full_error, wrap_with: { tag: 'p', class: 'mt-2 text-sm text-red-600' }
+    b.use :full_error, wrap_with: { tag: 'p', class: 'text-xs text-red-600' }
     b.use :hint, wrap_with: { tag: :label, class: "label label-text-alt" }
   end
 

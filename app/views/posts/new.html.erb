@@ -1,20 +1,17 @@
 <div class="flex items-center justify-center bg-base-100 my-15">
   <div class="flex flex-col gap-6">
-    <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
-      <legend class="fieldset-legend">Make a post</legend>
+    <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 shadow-2xl">
+      <legend class="fieldset-legend text-lg">New post</legend>
         <%= simple_form_for @post, data: { controller: "track-select" } do |f| %>
-        <%= f.input :mood, as: :select, collection: Post::MOODS %>
-        <%= f.input :content, label: "Say something about your mood (optionnal)", input_html: {class:"resize-none mb-3"} %>
-
-
-        <%= f.label :track_search, "Choisis une musique" %>
-        <input type="text" class="input input-bordered w-80 max-w-full mb-5" data-track-select-target="input" placeholder="Tape un titre ou artiste..." />
-
-        <ul id="track-results" data-track-select-target="results"></ul>
+        <%= f.input :content, label: "Share your thoughts", input_html: {class:"resize-none"} %>
+        <%= f.input :mood, label: "Mood*", as: :select, collection: Post::MOODS %>
+        <%= f.label :track_search, "Pick a song*", class:"text-sm" %>
+        <input type="text" class="input input-bordered w-80 max-w-full" data-track-select-target="input" placeholder="Type a song title or an artist" />
+        <ul id="track-results" data-track-select-target="results" class="ms-4 me-4 "></ul>
 
         <%= f.input :track_id, as: :hidden, input_html: { data: { track_select_target: "iframe" } } %>
         <%= f.input :cover_url, as: :hidden, input_html: { data: { track_select_target: "cover" } } %>
-        <%= f.button :submit, "Publier", class: "btn btn-primary w-80" %>
+        <%= f.button :submit, "Post", class: "btn btn-primary w-80 mt-4" %>
       <% end %>
 
     </fieldset>

@@ -16,6 +16,7 @@ export default class extends Controller {
         this.resultsTarget.innerHTML = ""
         data.forEach(track => {
           const li = document.createElement("li")
+          li.classList.add("pt-2")
           li.textContent = `${track.name} — ${track.artist}`
           li.addEventListener("click", () => {
             this.inputTarget.value = `${track.name} — ${track.artist}`
