@@ -1,20 +1,31 @@
 
-<div class="min-h-screen flex items-center justify-center bg-base-100 my-25">
+<div class="min-h-screen bg-base-100 py-10 px-4 sm:px-0">
   <div class="flex flex-col gap-6">
-    <%= link_to "Share your mood !", new_post_path, class: "btn btn-primary bg-gradient-to-r from-primary to-base-200 "  %>
+    <%= link_to "Share your mood !", new_post_path, class: "btn btn-primary bg-gradient-to-r from-primary to-base-200 mx-4 sm:mx-auto mt-6"  %>
     <% if @posts.any? %>
     <% @posts.order(id: :desc).each do |post| %>
-      <div class="card w-96 bg-base-200 shadow-xl">
-          <%= link_to post.user.username.capitalize, user_path(post.user) %></li>'s <%= post.mood %></legend>
+      <div class="card w-full max-w-md bg-base-200 shadow-xl mx-auto p-3">
+          <%= render "shared/frame", user: post.user %>
+          <%= link_to post.user.username.capitalize, user_path(post.user) %>
+          <%= post.mood %>
         <div class="card-body items-center text-center">
           <p class="mb-4"><%= post.content %></p>
             <iframe src="https://open.spotify.com/embed/track/<%= post.track_id %>"
                     width="300" height="80" frameborder="0"
                     allowtransparency="true" allow="encrypted-media">
-                    </iframe>
-          <div class="card-actions justify-end w-full mt-4">
+            </iframe>
+
+          <div class="card-actions justify-end w-full mt-4 flex items-center space-x-4">
             <%= render partial: "reactions/button", locals: { post: post } %>
-            <%= link_to "Comment",  post_path(post.id), class: "btn btn-primary" %>
+
+            <%= link_to post_path(post.id), class: "text-primary" do %>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                  viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                  class="w-6 h-6 hover:scale-110 transition">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
+              </svg>
+            <% end %>
           </div>
         </div>
       </div>
