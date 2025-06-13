@@ -1,11 +1,11 @@
 <div class="flex items-center justify-center py-10 bg-base-100">
-  <div class="card bg-base-200 w-96 shadow-md">
+  <div class="card border border-l-2 border-primary bg-base-200 w-96 shadow-md">
     <div class="card-body">
       <h2 class="card-title font-bold text-2xl mb-2 text-center text-shadow-md">
           <% avatar_and_name = render("shared/avatar", user: @post.user) + " #{@post.user.username.capitalize}'s" %>
           <%= link_to avatar_and_name.html_safe, user_path(@post.user), class: "block" %>
       </h2>
-      <p class= "font-bold pl-10"><%= @post.mood %></p>
+      <span class= "font-bold pl-10"><%= @post.mood %></span>
       <p class="text-xl mb-4"><%= @post.content %></p>
 
       <div class="flex justify-center my-4">
