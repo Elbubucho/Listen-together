@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-
+  attr_reader :confirmed
   def edit
     @user = current_user
   end
@@ -40,6 +40,9 @@ class UsersController < ApplicationController
   end
 
   def friend?
+    @existing_friendship = Friendship.find_by(asker: current_user, receiver: @user) ||
+                           Friendship.find_by(asker: @user, receiver: current_user)
+    @existing_friendship.confirmed
   end
 
   private

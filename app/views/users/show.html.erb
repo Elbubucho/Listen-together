@@ -10,7 +10,7 @@
       <h1 class="card-title text-2xl font-bold text-center mb-1">
         <%= @user.username.capitalize %>
       </h1>
-      <% unless @is_own_profile %>
+      <% unless @is_own_profile || (@existing_friendship && @existing_friendship.confirmed?)%>
         <div class="flex justify-center gap-3 w-full mb-4">
           <% if @existing_friendship.nil? %>
             <%= link_to "Add as friend", friendships_path(receiver_id: @user.id),
