@@ -39,28 +39,27 @@
 </div>
 
 <div>
-   <div class="min-h-screen flex items-center justify-center bg-base-100">
-  <div class="flex flex-col gap-6">
-    <% if @posts.any? %>
-    <% @posts.order(id: :desc).each do |post| %>
-      <div class="card w-96 bg-base-200 shadow-xl">
-        <%= render "shared/avatar", user: @user %>
-        <%= link_to "#{post.user.username.capitalize}'s #{post.mood}", user_path(post.user) %>
-        <div class="card-body items-center text-center">
-          <p class="mb-4"><%= post.content %></p>
+  <div class="min-h-screen flex items-center justify-center bg-base-100">
+    <div class="flex flex-col gap-6">
+      <% if @posts.any? %>
+        <% @posts.order(id: :desc).each do |post| %>
+        <div class="card w-96 bg-base-200 shadow-xl">
+          <% avatar_and_name = render("shared/avatar", user: post.user) + " #{post.user.username.capitalize}'s #{post.mood}" %>
+          <%= link_to avatar_and_name.html_safe, user_path(post.user), class: "block" %>
+          <div class="card-body items-center text-center">
+            <p class="mb-4"><%= post.content %></p>
             <iframe src="https://open.spotify.com/embed/track/<%= post.track_id %>"
                     width="300" height="80" frameborder="0"
                     allowtransparency="true" allow="encrypted-media">
-                    </iframe>
-          <div class="card-actions justify-end w-full mt-4">
-            <%= render partial: "reactions/button", locals: { post: post } %>
-            <%= link_to "Comment",  post_path(post.id), class: "btn btn-primary" %>
+            </iframe>
+            <div class="card-actions justify-end w-full mt-4">
+              <%= render partial: "reactions/button", locals: { post: post } %>
+              <%= link_to "Comment",  post_path(post.id), class: "btn btn-primary" %>
+            </div>
           </div>
         </div>
-      </div>
-    <% end %>
-  <% end %>
+        <% end %>
+      <% end %>
+    </div>
   </div>
-</div>
-
 </div>

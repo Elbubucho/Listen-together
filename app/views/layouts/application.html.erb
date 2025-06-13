@@ -15,7 +15,7 @@
     <% unless devise_controller? && (controller_name == 'sessions' || controller_name == 'registrations') %>
       <%= render "shared/navbar" %>
     <% end %>
-    <div class="py-16">
+    <div class="pb-16">
       <%= render 'shared/flashes' %>
       <%= yield %>
     </div>
