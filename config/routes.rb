@@ -17,8 +17,8 @@ Rails.application.routes.draw do
     end
   end
 
-resources :friendships, only: [:create, :update, :destroy]
-  
+  resources :friendships, only: [:create, :update, :destroy]
+
   get 'tracks/autocomplete', to: 'posts#autocomplete'
 
 end

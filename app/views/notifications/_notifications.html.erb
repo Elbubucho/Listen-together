@@ -1,0 +1,18 @@
+<button class="btn" popovertarget="popover-1" style="anchor-name:--anchor-1">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /> </svg>
+  <span class="badge badge-xs badge-primary indicator-item"></span>
+</button>
+<ul class="dropdown menu w-52 rounded-box bg-base-100 shadow-sm"
+  popover id="popover-1" style="position-anchor:--anchor-1">
+  <h6>Notifications</h6>
+    <%= turbo_stream_from "notifications_#{current_user}" %>
+    <%= turbo_frame_tag "notifications_#{current_user}" do %>
+      <% @notifications.each do |notification| %>
+
+  <li><a><%= render partial: "notifications/notification",
+                    user: notification.to_notification.creator,
+                    post: notification.to_notification.post,
+                    unread: notification.unread? %></a></li>
+      <% end %>
+    <% end %>
+</ul>

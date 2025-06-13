@@ -1,0 +1,8 @@
+<div>
+  <% if unread %>
+    <span>New</span><br>
+  <% end %>
+  <span><%= user.username.downcase %></span>
+  commented on
+  <span><%= link_to post, post %></span>
+</div>

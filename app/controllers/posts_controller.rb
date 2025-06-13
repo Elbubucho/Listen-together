@@ -16,6 +16,7 @@ class PostsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
+
   def show
     @post = Post.find(params[:id])
     @comment = Comment.new
@@ -39,5 +40,4 @@ class PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:content, :mood, :cover_url, :track_id)
   end
-
 end

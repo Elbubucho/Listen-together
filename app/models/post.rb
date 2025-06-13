@@ -1,5 +1,6 @@
 class Post < ApplicationRecord
   belongs_to :user
+  has_many :comments
 
   MOODS = ["😊 Happy", "😢 Sad", "🤩 Excited", "😎 Chill", "😡 Angry", "🥲 Nostalgic" ]
 
