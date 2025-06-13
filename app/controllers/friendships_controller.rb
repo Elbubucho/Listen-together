@@ -32,7 +32,7 @@ class FriendshipsController < ApplicationController
 
     if @friendship.receiver == current_user && !@friendship.confirmed?
       @friendship.update(confirmed: true)
-      redirect_to user_path(@friendship.receiver)
+      redirect_to user_path(@friendship.asker)
       flash[:notice] = "Friend request accepted."
     else
       render json: { error: "Not authorized or already accepted." }, status: :unauthorized
