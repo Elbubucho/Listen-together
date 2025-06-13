@@ -1,8 +1,8 @@
-<div class="navbar bg-base-200 fixed top-0 left-0 w-full z-50 py-0 border-b">
+<div class="navbar bg-base-200 w-full py-0 border-b">
   <div class="navbar-start">
     <div class="dropdown">
       <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
-        <%= render 'shared/avatar' %>
+        <%= render 'shared/avatar', user: current_user %>
       </div>
       <ul
         tabindex="0"
@@ -26,5 +26,32 @@
         <span class="badge badge-xs badge-primary indicator-item"></span>
       </div>
     </button>
+  </div>
+</div>
+
+<div class="fixed bottom-0 left-0 w-full bg-primary text-white z-50">
+  <div class="flex justify-between items-center px-6 py-2">
+
+    <div class="pl-3">
+      <%= link_to posts_path, class: "flex items-center justify-center" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+        </svg>
+      <% end %>
+    </div>
+
+    <%= link_to new_post_path, class: "bg-white text-primary rounded-full p-2 shadow-md hover:scale-110 transition" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+      </svg>
+    <% end %>
+
+    <div class="pr-3">
+      <%= link_to user_path(current_user), class: "flex items-center justify-center" do %>
+        <%= render "shared/avatar", user: current_user, class: "w-7 h-7 rounded-full border border-white" %>
+      <% end %>
+    </div>
+
   </div>
 </div>
