@@ -39,6 +39,9 @@ class UsersController < ApplicationController
 
   end
 
+  def friend?
+  end
+
   private
 
   def user_params

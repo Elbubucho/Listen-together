@@ -17,13 +17,13 @@
             <div>
               <%= link_to friend.username.capitalize, user_path(friend), class: "font-semibold hover:underline" %>
             </div>
-            
+
               <div class="text-[11px] font-semibold opacity-60">
-                Friends since <%= time_ago_in_words(friendship.updated_at.to_date) %> ago
+                Friends since <%= time_ago_in_words(friendship.updated_at) %> ago
               </div>
               <div class="">
                 <%= render "shared/unfriend", friendship: friendship, friend: friend %>
-              </div>            
+              </div>
           </div>
         </li>
       <% end %>
