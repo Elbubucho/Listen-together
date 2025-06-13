@@ -13,7 +13,7 @@
 </div>
 
 <div class="mt-10 text-center">
-  <%= render "shared/avatar" %>
+  <%= render "shared/avatar", user: @user %>
   <% if @is_own_profile %>
     <div class="flex justify-end mb-4">
       <%= link_to "⚙️ Modifier mon profil", edit_user_path(@user), class: "btn btn-sm btn-primary" %>
@@ -44,7 +44,8 @@
     <% if @posts.any? %>
     <% @posts.order(id: :desc).each do |post| %>
       <div class="card w-96 bg-base-200 shadow-xl">
-        <legend class="fieldset-legend"><%= link_to post.user.username, user_path(post.user) %></li>'s <%= post.mood %></legend>
+        <%= render "shared/avatar", user: @user %>
+        <%= link_to "#{post.user.username.capitalize}'s #{post.mood}", user_path(post.user) %>
         <div class="card-body items-center text-center">
           <p class="mb-4"><%= post.content %></p>
             <iframe src="https://open.spotify.com/embed/track/<%= post.track_id %>"
