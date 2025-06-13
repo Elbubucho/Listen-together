@@ -1,0 +1,5 @@
+<%= button_to "Unfriend",
+              friendship_path(friendship),
+              method: :delete,
+              data: { turbo_confirm: "Are you sure you want to remove #{friend.username.capitalize} from your friends?" },
+              class: "btn btn-error btn-xs" %>
