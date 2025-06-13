@@ -10,12 +10,8 @@
            ) %>
 
         <li class="list-row flex items-center gap-4 p-4 border-t border-base-200">
-          <div>
-            <% if friend.avatar.attached? %>
-              <%= cl_image_tag friend.avatar.key, class: "avatar" %>
-            <% else %>
-              <%= image_tag "default_avatar.png", class: "avatar" %>
-            <% end %>
+          <div class="avatar">
+            <%= render "shared/avatar", user: friend %>
           </div>
           <div>
             <div>
