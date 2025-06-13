@@ -1,27 +1,35 @@
-<div class="flex items-center justify-center min-h-screen bg-base-100 my-25">
+<div class="flex items-center justify-center min-h-screen bg-base-100">
   <div class="card w-full max-w-3xl h-[700px] md:h-[800px] bg-base-200 shadow-xl flex flex-col">
+      <h1 class="card-title text-3xl font-bold mb-2 text-center">
+        <%= link_to "#{@post.user.username.capitalize}'s #{@post.mood}", user_path(@post.user), class: "block" %>
+      </h1>
     <figure class="flex-shrink-0">
       <img src="<%= @post.cover_url %>" alt="cover" class="object-contain w-full h-72 md:h-96 pt-5"/>
     </figure>
     <div class="flex flex-col items-center text-center flex-1">
-      <h1 class="card-title text-3xl font-bold mb-2">
-        <%= link_to @post.user.username, user_path(@post.user) %>'s <br>
-      </h1>
-      <h2>  <%= @post.mood %> mood </h2>
       <h2 class="text-xl mb-4"><%= @post.content %></h2>
         <%= render partial: "reactions/button", locals: { post: @post, reaction: @reaction } %>
     </div>
   </div>
 </div>
 
-<div class="flex flex-col items-center justify-center px-4 py-6 max-w-3xl mx-auto">
-  <h3 class="text-2xl font-semibold mb-4">Leave a comment...</h3>
-
-    <%= simple_form_for [@post, @comment] do |f| %>
-    <%= f.input :content, label: false, placeholder: 'Leave a comment' %>
-    <%= f.submit "Send", class: "btn btn-primary" %>
+<div class="flex flex-col items-center justify-center max-w-3xl mx-auto">
+  <div class="w-full max-w-3xl mx-auto mb-6">
+  <h3 class="text-2xl font-semibold mb-4 text-center">Leave a comment...</h3>
+  <%= simple_form_for [@post, @comment], html: { class: "flex flex-col gap-2" } do |f| %>
+    <%= f.input :content,
+          label: false,
+          placeholder: 'Leave a comment',
+          input_html: { class: "input input-bordered w-full" } %>
+    <div class="flex justify-center">
+      <%= f.submit "Send", class: "btn btn-primary" %>
+       <%# rechargement turbo stream a faire  %>
+    </div>
   <% end %>
+</div>
 
-  <h2 class="text-xl font-bold mt-8 mb-4">Comments</h2>
-  <%= render @post.comments %>
+  <ul class="list bg-base-200 rounded-box shadow-md w-95">
+    <li class="p-4 pb-2 tracking-wide border-b">Comments</li>
+      <%= render "comments/comment", post: @post %>
+  </ul>
 </div>

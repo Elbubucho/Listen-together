@@ -3,18 +3,17 @@
 
   <% unless @is_own_profile %>
     <% if @existing_friendship.nil? %>
-        <%= button_to "Add Friend", friendships_path(receiver_id: @user.id), method: :post %>
+        <%= link_to "Add as friend", friendships_path(receiver_id: @user.id), data: {turbo_method: :post}  %>
     <% elsif @existing_friendship.asker == current_user %>
-      <span>Friend request sent</span>
+      <span>Already added as friend</span>
     <% elsif @existing_friendship.receiver == current_user %>
-      <%= button_to "Add as friend", friendship_path(@existing_friendship), method: :patch %>
+<%= link_to "Accept as friend", friendship_path(@existing_friendship), data: { turbo_method: :patch }, class: "btn btn-soft btn-primary" %>
     <% end %>
   <% end %>
 </div>
 
-
 <div class="mt-10 text-center">
-  <%= render "shared/avatar" %>
+  <%= render "shared/avatar", user: @user %>
   <% if @is_own_profile %>
     <div class="flex justify-end mb-4">
       <%= link_to "⚙️ Modifier mon profil", edit_user_path(@user), class: "btn btn-sm btn-primary" %>
@@ -29,9 +28,8 @@
 
   <div class="flex justify-center gap-6 text-sm mt-2">
      <span><%= @user.posts.count %> posts</span>
-     <span><%= @friends_count %> friends</span>
+     <span><%= link_to "#{@friends_count} friends", friends_user_path(@user) %></span>
   </div>
-
 
   <div class = "flex justify-center gap-6 text-sm mt-2">
     <% if @user.bio.present? %>
@@ -39,14 +37,15 @@
     <% end %>
   </div>
 </div>
-  
+
 <div>
-   <div class="min-h-screen flex items-center justify-center bg-base-100 my-25">
+   <div class="min-h-screen flex items-center justify-center bg-base-100">
   <div class="flex flex-col gap-6">
     <% if @posts.any? %>
     <% @posts.order(id: :desc).each do |post| %>
       <div class="card w-96 bg-base-200 shadow-xl">
-        <legend class="fieldset-legend"><%= link_to post.user.username, user_path(post.user) %></li>'s <%= post.mood %></legend>
+        <%= render "shared/avatar", user: @user %>
+        <%= link_to "#{post.user.username.capitalize}'s #{post.mood}", user_path(post.user) %>
         <div class="card-body items-center text-center">
           <p class="mb-4"><%= post.content %></p>
             <iframe src="https://open.spotify.com/embed/track/<%= post.track_id %>"
