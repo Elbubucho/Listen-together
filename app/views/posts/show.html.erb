@@ -1,35 +1,43 @@
-<div class="flex items-center justify-center min-h-screen bg-base-100">
-  <div class="card w-full max-w-3xl h-[700px] md:h-[800px] bg-base-200 shadow-xl flex flex-col">
-      <h1 class="card-title text-3xl font-bold mb-2 text-center">
-        <%= link_to "#{@post.user.username.capitalize}'s #{@post.mood}", user_path(@post.user), class: "block" %>
-      </h1>
-    <figure class="flex-shrink-0">
-      <img src="<%= @post.cover_url %>" alt="cover" class="object-contain w-full h-72 md:h-96 pt-5"/>
-    </figure>
-    <div class="flex flex-col items-center text-center flex-1">
-      <h2 class="text-xl mb-4"><%= @post.content %></h2>
+<div class="flex items-center justify-center py-10 bg-base-100">
+  <div class="card bg-base-200 w-96 shadow-md">
+    <div class="card-body">
+      <h2 class="card-title font-bold text-2xl mb-2 text-center text-shadow-md">
+          <% avatar_and_name = render("shared/avatar", user: @post.user) + " #{@post.user.username.capitalize}'s" %>
+          <%= link_to avatar_and_name.html_safe, user_path(@post.user), class: "block" %>
+      </h2>
+      <p class= "font-bold pl-10"><%= @post.mood %></p>
+      <p class="text-xl mb-4"><%= @post.content %></p>
+
+      <div class="flex justify-center my-4">
+        <iframe src="https://open.spotify.com/embed/track/<%= @post.track_id %>"
+                width="300" height="80" frameborder="0"
+                allowtransparency="true" allow="encrypted-media">
+        </iframe>
+      </div>
+
+      <div class="text-center">
         <%= render partial: "reactions/button", locals: { post: @post, reaction: @reaction } %>
+      </div>
     </div>
   </div>
 </div>
 
 <div class="flex flex-col items-center justify-center max-w-3xl mx-auto">
   <div class="w-full max-w-3xl mx-auto mb-6">
-  <h3 class="text-2xl font-semibold mb-4 text-center">Leave a comment...</h3>
-  <%= simple_form_for [@post, @comment], html: { class: "flex flex-col gap-2" } do |f| %>
-    <%= f.input :content,
-          label: false,
-          placeholder: 'Leave a comment',
-          input_html: { class: "input input-bordered w-full" } %>
-    <div class="flex justify-center">
-      <%= f.submit "Send", class: "btn btn-primary" %>
-       <%# rechargement turbo stream a faire  %>
-    </div>
-  <% end %>
-</div>
+    <h3 class="text-2xl font-semibold mb-4 text-center text-shadow-lg">Leave a comment...</h3>
+    <%= simple_form_for [@post, @comment], html: { class: "flex flex-col gap-2" } do |f| %>
+      <%= f.input :content,
+            label: false,
+            placeholder: 'What do you think ?' %>
+      <div class="flex justify-center">
+        <%= f.submit "Send", class: "btn btn-primary w-full" %>
+        <%# rechargement turbo stream a faire  %>
+      </div>
+    <% end %>
+  </div>
 
+  <p class="p-4 pb-2 font-bold text-shadow-md">Comments</p>
   <ul class="list bg-base-200 rounded-box shadow-md w-95">
-    <li class="p-4 pb-2 tracking-wide border-b">Comments</li>
       <%= render "comments/comment", post: @post %>
   </ul>
 </div>
