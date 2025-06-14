@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["input", "results", "iframe", "cover"]
+  static targets = ["input", "results", "iframe", "cover", "music_genres"]
 
   timeout = null
 
