@@ -1,6 +1,8 @@
 class Post < ApplicationRecord
   belongs_to :user
 
+  ORDER_BY = { newest: "created_at DESC", oldest: "created_at ASC", popular: "COUNT(reactions.id) DESC"}.freeze
+
   MOODS = ["😊 Happy", "😢 Sad", "🤩 Excited", "😎 Chill", "😡 Angry", "🥲 Nostalgic" ]
 
   has_many :comments, dependent: :destroy

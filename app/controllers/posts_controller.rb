@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   def index
-    @posts = Post.all
+    @posts = (FindPosts.new.call(params).load_async)
+    @all_genres = Post.pluck(:music_genres).flatten.uniq.sort
   end
 
   def new
@@ -10,6 +11,8 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user = current_user
+    track = RSpotify::Track.find(@post.track_id)
+    @post.music_genres = track.artists.first.genres
     if @post.save
       redirect_to root_path
     else
@@ -22,14 +25,13 @@ class PostsController < ApplicationController
   end
 
   def autocomplete
-    RSpotify.authenticate(ENV['SPOTIFY_CLIENT_ID'], ENV['SPOTIFY_CLIENT_SECRET'])
     results = RSpotify::Track.search(params[:query])
     render json: results.first(8).map { |track|
       {
         id: track.id,
         name: track.name,
         artist: track.artists.first.name,
-        cover: track.album.images.first["url"]
+        cover: track.album.images.first["url"],
       }
     }
   end
