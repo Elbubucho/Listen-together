@@ -1,5 +1,6 @@
   <%= turbo_stream_from "notifications_#{current_user.id}_list", id: "notification_stream" %>
     <div id="notification-list" class="bg-white shadow-lg rounded">
+      <%= link_to post_path(Comment.find(Notification.last.params[:comment_id]).post) do  %>
       <div class="p-4 space-y-2">
         <% if @notifications.any? %>
           <%= render @notifications.order(created_at: :desc) %>
@@ -7,4 +8,5 @@
           <p class="text-gray-500">No notification yet.</p>
         <% end %>
       </div>
+      <% end %>
     </div>

@@ -1,21 +1,24 @@
 class CommentNotification < Noticed::Base
-  belongs_to :comment
 
   deliver_by :database
   deliver_by :action_cable, format: :to_action_cable
 
   # On attend un paramètre :message (chaîne de caractères)
-  param :message
+  param :message, :comment_id
 
   # Après la livraison, nous diffusons la notification via Turbo Streams
   after_deliver :broadcast_notification
 
   def to_database
-    { message: params[:message] }
+    { message: params[:message], comment_id: params[:comment_id]}
   end
 
   def to_action_cable
-    { title: "New comment", message: params[:message], id: record.id }
+    { title: "New comment", message: params[:message], comment_id: params[:comment_id],id: record.id }
+  end
+
+  def comment
+    Comment.find(params[:comment_id])
   end
 
   private
