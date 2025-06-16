@@ -1,0 +1,4 @@
+<div>
+  <%= render "shared/avatar", user: user %>
+  <%= link_to user.username, chat_path(user), data: { turbo: false } %>
+</div>

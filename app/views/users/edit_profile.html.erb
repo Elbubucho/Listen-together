@@ -1,6 +1,6 @@
 <div class="max-w-md mx-auto p-6">
   <h1 class="text-xl font-bold mb-4">Modifier mon profil</h1>
-  <%= simple_form_for(current_user, url: registration_path(current_user), html: { method: :patch }) do |f| %>
+  <%= simple_form_for(current_user, url: user_update_profile_path, html: { method: :patch, data: {turbo: false} }) do |f| %>
     <%= f.error_notification %>
     <div class="form-inputs">
       <div class="mb-4">
@@ -21,7 +21,7 @@
       </div>
 
     </div>
-     <%= hidden_field_tag :custom_profile_edit, true %>
+
     <div class="form-actions btn btn-primary">
       <%= f.button :submit, "Update" %>
     </div>

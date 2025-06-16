@@ -1,6 +1,6 @@
 <fieldset class="fieldset bg-base-100 border-base-300 flex items-center justify-center">
   <legend class="fieldset-legend">Login</legend>
-  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { data: { turbo: false } }) do |f| %>
     <div class="form-inputs">
       <%= f.input :email,
                   required: false,
