@@ -10,7 +10,10 @@ class CommentsController < ApplicationController
     @comment = @post.comments.new(comment_params)
     @comment.user = current_user
     if @comment.save
-      redirect_to post_path(@post)
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to post_path(@post), notice: "Comment was successfully created." }
+      end
     else
       redirect_to post_path(@post), status: :unprocessable_entity
     end

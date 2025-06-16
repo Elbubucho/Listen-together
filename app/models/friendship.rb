@@ -10,4 +10,21 @@ class Friendship < ApplicationRecord
       errors.add(:receiver_id, "can't be the same as asker")
     end
   end
+
+  after_create_commit :notify_asker
+  after_update_commit :notify_receiver
+
+  private
+
+  def notify_asker
+    FriendshipNotification.with(
+      message: "#{asker.username} sent you a friend request."
+    ).deliver_later(receiver)
+  end
+
+  def notify_receiver
+    FriendshipNotification.with(
+      message: "#{receiver.username} accepted your friend request."
+    ).deliver_later(asker)
+  end
 end
