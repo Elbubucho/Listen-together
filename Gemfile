@@ -77,3 +77,5 @@ group :test do
 end
 
 gem 'ostruct'
+
+gem "noticed", "~> 1.6"

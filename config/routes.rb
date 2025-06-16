@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   resources :rooms do
     resources :messages
   end
+  
+  resources :notifications, only: [:index, :update, :destroy]
 
   resources :users, only: [:show, :edit, :update]
 
