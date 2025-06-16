@@ -1,12 +1,21 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :set_user, only: [:show, :chat, :friends]
 
-  def edit
+  def edit_profile
     @user = current_user
   end
 
+  def update_profile
+    @user = current_user
+    if @user.update(user_params)
+      redirect_to user_path(@user), notice: "Profil updated successfully !"
+    else
+      flash[:alert] = @user.errors.full_messages.join(', ')
+      redirect_to user_edit_profile_path(@user)
+    end
+  end
+
   def friends
-    @user = User.find(params[:id])
     if @user != current_user
       redirect_to root_path, alert: "Access denied."
       return
@@ -24,7 +33,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
     @friends = @user.friends
     @friends_count = @friends.count
     @posts = @user.posts.order(created_at: :desc)
@@ -39,9 +47,31 @@ class UsersController < ApplicationController
 
   end
 
+  def chat
+    @users = @user.friends
+
+    @room = Room.new
+    @rooms = Room.where(is_private: false)
+    @room_name = get_name(@user, current_user)
+    @single_room = Room.where(name: @room_name).first || Room.create_private_room([@user, current_user], @room_name)
+
+    @message = Message.new
+    @messages = @single_room.messages.order(created_at: :asc)
+    render "rooms/show"
+  end
+
   private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
 
   def user_params
     params.require(:user).permit(:username, :avatar_url, :bio)
+  end
+
+  def get_name(user1, user2)
+    user = [user1, user2].sort
+    "private_#{user[0].id}_#{user[1].id}"
   end
 end
