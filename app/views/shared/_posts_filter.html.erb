@@ -18,17 +18,6 @@
           <% end %>
         </ul>
       </div>
-
-      <div class="flex-1">
-        <h4 class="text-lg font-semibold mb-3 text-left">Genres</h4>
-        <ul class="flex flex-col gap-2">
-          <% @all_genres.each do |genre| %>
-            <li>
-              <%= link_to genre, posts_path(music_genres: genre), class: "btn btn-primary w-full" %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
     </div>
     <div class="modal-action mt-6">
       <form method="dialog">
