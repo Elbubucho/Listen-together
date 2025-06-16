@@ -4,12 +4,18 @@ class ReactionsController < ApplicationController
 
   def create
     @reaction = @post.reactions.build(user: current_user)
-    @reaction.save
-    render turbo_stream: turbo_stream.replace(
-      "reaction_button_#{@post.id}",
-      partial: "reactions/button",
-      locals: { post: @post }
-    )
+    if @reaction.save
+      respond_to do |format|
+        format.turbo_stream
+        render turbo_stream: turbo_stream.replace(
+        "reaction_button_#{@post.id}",
+        partial: "reactions/button",
+        locals: { post: @post }
+        )
+      end
+    else
+      redirect_to post_path(@post), status: :unprocessable_entity
+    end
   end
 
   def destroy
