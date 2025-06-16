@@ -1,0 +1,13 @@
+<h2 class="text-xl font-semibold mb-4">Search results</h2>
+
+<% if @users.any? %>
+  <ul class="space-y-2">
+    <% @users.each do |user| %>
+      <li>
+        <%= link_to user.username.capitalize, user_path(user), class: "link link-hover text-primary" %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No users found.</p>
+<% end %>

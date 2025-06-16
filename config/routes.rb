@@ -15,8 +15,11 @@ Rails.application.routes.draw do
       get :friend_requests_sent
       get :friend_requests_received
     end
-  end
 
+    collection do
+      get :autocomplete
+    end
+  end
 
   resources :users, only: [:show, :edit, :update]
 

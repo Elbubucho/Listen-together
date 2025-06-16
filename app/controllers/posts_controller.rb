@@ -1,6 +1,13 @@
 class PostsController < ApplicationController
   def index
-    @posts = (FindPosts.new.call(params).load_async)
+    scope = FindPosts.new.call(params)
+
+    if params[:friends_only] == "true"
+      friend_ids = current_user.friends.pluck(:id)
+      scope = scope.where(user_id: friend_ids)
+    end
+
+    @posts = scope.load_async
     @all_genres = Post.pluck(:music_genres).flatten.uniq.sort
   end
 
@@ -19,6 +26,7 @@ class PostsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
+
   def show
     @post = Post.find(params[:id])
     @comment = Comment.new
@@ -34,6 +42,16 @@ class PostsController < ApplicationController
         cover: track.album.images.first["url"],
       }
     }
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    if @post.user == current_user
+      @post.destroy
+      redirect_to root_path, notice: "Post deleted successfully."
+    else
+      redirect_to root_path
+    end
   end
 
   private
