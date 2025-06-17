@@ -42,13 +42,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_16_084700) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "chats", force: :cascade do |t|
-    t.bigint "user_mood_music_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_mood_music_id"], name: "index_chats_on_user_mood_music_id"
-  end
-
   create_table "comments", force: :cascade do |t|
     t.string "content"
     t.bigint "post_id", null: false
