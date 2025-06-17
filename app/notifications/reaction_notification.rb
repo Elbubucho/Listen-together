@@ -31,11 +31,11 @@ class ReactionNotification < Noticed::Base
       locals: { notification: self.record }
     )
 
-    # recipient.broadcast_replace_later_to(
-    #   "notifications_#{recipient.id}_counter",
-    #   target: "notification-counter",
-    #   partial: "notifications/notification_counter",
-    #   locals: { user: recipient }
-    # )
+    recipient.broadcast_prepend_later_to(
+      "notifications_#{recipient.id}_indicator",
+      target: "notification-indicator",
+      partial: "notifications/notification_indicator",
+      locals: { user: recipient }
+    )
   end
 end
