@@ -3,7 +3,6 @@
     <li class="list-row border-b last:border-b-0">
         <%= link_to user_path(comment.user), class: "block" do %>
           <%= render "shared/avatar", user: comment.user %>
-
       <div class="flex-1 min-w-0">
         <div class="font-semibold truncate text-shadow-md"><%= comment.user.username.capitalize %></div>
         <% end %>

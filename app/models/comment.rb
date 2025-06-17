@@ -13,7 +13,7 @@ class Comment < ApplicationRecord
 
     CommentNotification.with(
       message: "#{user.username} commented your post.",
-      comment_id: self.id
+      post_id: self.post.id
     ).deliver_later(post.user)
   end
 end

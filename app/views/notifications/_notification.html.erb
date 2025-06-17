@@ -1,11 +1,40 @@
-<div id="notification-<%= notification.id %>" class="notification group relative flex flex-col sm:flex-row items-start sm:items-center bg-white hover:bg-gray-50 border border-gray-100 rounded-lg p-4 mb-2 shadow-sm transition-all duration-300 ease-in-out">
-  <div class="flex-grow w-full sm:pr-4">
-    <p class="text-gray-800 text-sm sm:text-base mb-1.5">
-      <%= notification.params[:message] %>
-
-    </p>
-    <p class="text-xs text-gray-500 mb-2">
-      <%= time_ago_in_words(notification.created_at) %> ago
-    </p>
-  </div>
-</div>
+<% if notification.params[:post_id].present? %>
+	<%= link_to post_path(notification.params[:post_id]) do %>
+		<div id="notification-<%= notification.id %>" class="notification group relative flex flex-col sm:flex-row items-start sm:items-center bg-white hover:bg-gray-50 border border-gray-100 rounded-lg p-4 mb-2 shadow-sm transition-all duration-300 ease-in-out">
+				<div class="flex-grow w-full sm:pr-4">
+					<p class="text-gray-800 text-sm sm:text-base mb-1.5">
+						<%= notification.params[:message] %>
+					</p>
+					<p class="text-xs text-gray-500 mb-2">
+						<%= time_ago_in_words(notification.created_at) %> ago
+					</p>
+				</div>
+		</div>
+	<% end %>
+<% elsif notification.params[:receiver_id] == notification.recipient_id  %>
+		<%= link_to user_path(notification.params[:asker_id]) do %>
+			<div id="notification-<%= notification.id %>" class="notification group relative flex flex-col sm:flex-row items-start sm:items-center bg-white hover:bg-gray-50 border border-gray-100 rounded-lg p-4 mb-2 shadow-sm transition-all duration-300 ease-in-out">
+					<div class="flex-grow w-full sm:pr-4">
+						<p class="text-gray-800 text-sm sm:text-base mb-1.5">
+							<%= notification.params[:message] %>
+						</p>
+						<p class="text-xs text-gray-500 mb-2">
+							<%= time_ago_in_words(notification.created_at) %> ago
+						</p>
+					</div>
+			</div>
+		<% end %>
+<% elsif notification.params[:asker_id] == current_user.id %>
+		<%= link_to user_path(notification.params[:receiver_id]) do %>
+			<div id="notification-<%= notification.id %>" class="notification group relative flex flex-col sm:flex-row items-start sm:items-center bg-white hover:bg-gray-50 border border-gray-100 rounded-lg p-4 mb-2 shadow-sm transition-all duration-300 ease-in-out">
+					<div class="flex-grow w-full sm:pr-4">
+						<p class="text-gray-800 text-sm sm:text-base mb-1.5">
+							<%= notification.params[:message] %>
+						</p>
+						<p class="text-xs text-gray-500 mb-2">
+							<%= time_ago_in_words(notification.created_at) %> ago
+						</p>
+					</div>
+			</div>
+	<% end %>
+<% end %>
