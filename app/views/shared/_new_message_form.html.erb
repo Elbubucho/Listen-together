@@ -1,0 +1,18 @@
+<%= simple_form_for [@single_room, @message],
+  html: {
+    class: "msg-form w-full max-w-2xl mx-auto px-4 py-2 flex items-center gap-2 bg-base-200 rounded-box shadow fixed bottom-16 left-1/2 transform -translate-x-1/2 z-40",
+    data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" }
+  } do |f| %>
+  <div class="flex-grow">
+    <%= f.input :body,
+      label: false,
+      input_html: {
+        id: 'chat-text',
+        class: 'input input-bordered w-full',
+        placeholder: "Say something…"
+      } %>
+  </div>
+  <div class="form-actions">
+    <%= f.button :submit, "Send", class: 'btn btn-primary btn-sm sm:btn-md' %>
+  </div>
+<% end %>

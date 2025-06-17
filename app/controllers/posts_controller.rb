@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   def index
-    @posts = (FindPosts.new.call(params).load_async)
+    @posts = (FindPosts.new.call(params, current_user).load_async)
     @all_genres = Post.pluck(:music_genres).flatten.uniq.sort
   end
 
@@ -19,6 +19,7 @@ class PostsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
+
   def show
     @post = Post.find(params[:id])
     @comment = Comment.new
@@ -31,9 +32,19 @@ class PostsController < ApplicationController
         id: track.id,
         name: track.name,
         artist: track.artists.first.name,
-        cover: track.album.images.first["url"],
+        cover: track.album.images.first["url"]
       }
     }
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    if @post.user == current_user
+      @post.destroy
+      redirect_to root_path, notice: "Post deleted successfully."
+    else
+      redirect_to root_path
+    end
   end
 
   private
