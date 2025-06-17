@@ -8,16 +8,23 @@ class User < ApplicationRecord
 
   has_many :friendships_as_asker, class_name: "Friendship", foreign_key: :asker_id, dependent: :destroy
   has_many :friendships_as_receiver, class_name: "Friendship", foreign_key: :receiver_id, dependent: :destroy
+  
+  has_many :messages
+
+  has_many :notifications, as: :recipient, dependent: :destroy, class_name: "Notification"
 
   has_one_attached :avatar
+
+  scope :all_except, -> (user) { where.not(id: user)}
+  after_create_commit { broadcast_append_to "users"}
 
   validates :username, presence: true, uniqueness: true
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
   def friends
-  User.where(id: friendships_as_asker.where(confirmed: true).select(:receiver_id))
-      .or(User.where(id: friendships_as_receiver.where(confirmed: true).select(:asker_id)))
+    User.where(id: friendships_as_asker.where(confirmed: true).select(:receiver_id))
+        .or(User.where(id: friendships_as_receiver.where(confirmed: true).select(:asker_id)))
   end
 
   def pending_friend_requests_sent

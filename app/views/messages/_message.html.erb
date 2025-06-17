@@ -1,0 +1,12 @@
+<div class="chat chat-start" data-chat-target="message" data-user-id="<%= message.user.id %>">
+  <div class="chat-image avatar">
+    <%= render "shared/avatar", user: message.user %>
+  </div>
+  <div class="chat-header">
+    <% unless message.room.is_private %>
+      <%= message.user.username %>
+    <% end %>
+    <time class="text-xs opacity-50"><%= time_ago_in_words(message.created_at) %></time>
+  </div>
+  <div class="chat-bubble text-white"><%= message.body %></div>
+</div>

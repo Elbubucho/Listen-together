@@ -1,0 +1,14 @@
+<div id="room_container" data-controller="chat" data-chat-current-user-id-value="<%= current_user.id %>" class="w-full sm:w-1/3 md:w-1/3 px-2">
+  <% if @single_room %>
+  <div id="single_room">
+    <h4 class="text-center">
+      <%= @user&.username || @single_room.name %>
+    </h4>
+    <%=  turbo_stream_from @single_room %>
+    <div id="messages">
+      <%= render @messages %>
+    </div>
+  </div>
+    <%= render 'shared/new_message_form' %>
+  </div>
+  <% end %>
