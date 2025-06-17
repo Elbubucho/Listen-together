@@ -1,6 +1,19 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, :set_user, only: [:show, :chat, :friends]
 
+  def index
+    if params[:query].present?
+      @users = User.where("username ILIKE ?", "%#{params[:query]}%")
+    else
+      @users = User.none
+    end
+  end
+
+  def autocomplete
+    users = User.where("username ILIKE ?", "%#{params[:query]}%").limit(5)
+    render json: users.map { |u| { id: u.id, name: u.username } }
+  end
+
   def edit_profile
     @user = current_user
   end
