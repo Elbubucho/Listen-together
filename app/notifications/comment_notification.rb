@@ -1,6 +1,4 @@
 class CommentNotification < Noticed::Base
-  belongs_to :comment
-
   deliver_by :database
   deliver_by :action_cable, format: :to_action_cable
 
