@@ -6,7 +6,9 @@
     <% @posts.each do |post| %>
       <div class="card max-w-md bg-base-200 border border-l-2 border-primary shadow-lg shadow-2xl mx-5 sm:mx-auto p-1 my-2">
           <div class="flex items-center gap-3 pl-2 pt-2">
-            <%= render "shared/avatar", user: post.user, class: "w-10 h-10" %>
+            <%= link_to user_path(post.user), class: "block" do %>
+              <%= render "shared/avatar", user: post.user, class: "w-10 h-10" %>
+            <% end %>
             <div>
               <%= link_to post.user.username.capitalize, user_path(post.user), class: "font-semibold text-base text-base-content" %><br>
               <span><%= post.mood %></span>
@@ -31,6 +33,15 @@
               </svg>
             <% end %>
           </div>
+          <% if post.user == current_user %>
+            <div class="absolute top-2 right-2">
+              <%= button_to post_path(post), method: :delete, data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, class: "text-error hover:text-red-700 transition" do %>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              <% end %>
+            </div>
+          <% end %>
         </div>
       </div>
     <% end %>

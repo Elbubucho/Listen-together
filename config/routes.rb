@@ -18,12 +18,16 @@ Rails.application.routes.draw do
       get :friend_requests_sent
       get :friend_requests_received
     end
+
+    collection do
+      get :autocomplete
+    end
   end
 
   resources :rooms do
     resources :messages
   end
-  
+
   resources :notifications, only: [:index, :update, :destroy]
 
   resources :users, only: [:show, :edit, :update]
