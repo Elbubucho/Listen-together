@@ -1,4 +1,6 @@
-<div>
-  <%= render "shared/avatar", user: user %>
-  <%= link_to user.username, chat_path(user), data: { turbo: false } %>
+<div class="flex items-center space-x-4 p-3 rounded-lg bg-base-100 hover:bg-base-200 transition-colors duration-200">
+  <%= link_to chat_path(user), data: { turbo: false }, class: "flex items-center space-x-4 w-full" do %>
+    <%= render "shared/avatar", user: user %>
+    <span class="font-medium text-base-content"><%= user.username %></span>
+  <% end %>
 </div>
