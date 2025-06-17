@@ -21,7 +21,7 @@
       <% if @post.user == current_user %>
         <div class="absolute top-2 right-2">
           <%= button_to post_path(@post), method: :delete,
-                        data: { confirm: "Delete this post?" },
+                        data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" },
                         class: "text-error hover:text-red-700 transition" do %>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
                 viewBox="0 0 24 24" stroke="currentColor">

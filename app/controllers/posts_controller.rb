@@ -1,13 +1,6 @@
 class PostsController < ApplicationController
   def index
-    scope = FindPosts.new.call(params)
-
-    if params[:friends_only] == "true"
-      friend_ids = current_user.friends.pluck(:id)
-      scope = scope.where(user_id: friend_ids)
-    end
-
-    @posts = scope.load_async
+    @posts = (FindPosts.new.call(params, current_user).load_async)
     @all_genres = Post.pluck(:music_genres).flatten.uniq.sort
   end
 
