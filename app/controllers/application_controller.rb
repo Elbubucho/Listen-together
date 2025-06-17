@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_notifications
-    @notification = current_user.notifications.order(created_at: :desc)
+    @notifications = current_user&.notifications.order(created_at: :desc)
   end
 
   def after_sign_in_path_for(resource)
