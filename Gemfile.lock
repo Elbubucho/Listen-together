@@ -404,7 +404,6 @@ DEPENDENCIES
   jbuilder
   noticed (~> 1.6)
   ostruct
-  pagy (~> 9.3)
   pg (~> 1.1)
   puma (>= 5.0)
   rails (~> 7.1.5, >= 7.1.5.1)
