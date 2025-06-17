@@ -2,7 +2,7 @@
     <div id="notification-list" class="bg-white shadow-lg rounded">
       <div class="p-4 space-y-2">
         <% if @notifications.any? %>
-          <%= render @notifications.order(created_at: :desc) %>
+          <%= render @notifications.order(created_at: :desc), current_user: current_user %>
         <% else %>
           <p class="text-gray-500">No notification yet.</p>
         <% end %>

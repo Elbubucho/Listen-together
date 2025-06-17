@@ -8,17 +8,17 @@ class FriendshipNotification < Noticed::Base
   deliver_by :action_cable, format: :to_action_cable
 
   # On attend un paramètre :message (chaîne de caractères)
-  param :message
+  param :message, :asker_id, :receiver_id
 
   # Après la livraison, nous diffusons la notification via Turbo Streams
   after_deliver :broadcast_notification
 
   def to_database
-    { message: params[:message] }
+    { message: params[:message], asker_id: params[:asker_id], receiver_id: params[:receiver_id] }
   end
 
   def to_action_cable
-    { title: "New friend invite", message: params[:message], id: record.id }
+    { title: "New friend invite", message: params[:message], asker_id: params[:asker_id], receiver_id: params[:receiver_id], id: record.id }
   end
 
   private
@@ -31,11 +31,11 @@ class FriendshipNotification < Noticed::Base
       locals: { notification: self.record }
     )
 
-    # recipient.broadcast_replace_later_to(
-    #   "notifications_#{recipient.id}_counter",
-    #   target: "notification-counter",
-    #   partial: "notifications/notification_counter",
-    #   locals: { user: recipient }
-    # )
+    recipient.broadcast_prepend_later_to(
+      "notifications_#{recipient.id}_indicator",
+      target: "notification-indicator",
+      partial: "notifications/notification_indicator",
+      locals: { user: recipient }
+    )
   end
 end

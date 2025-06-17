@@ -18,13 +18,17 @@ class Friendship < ApplicationRecord
 
   def notify_asker
     FriendshipNotification.with(
-      message: "#{asker.username} sent you a friend request."
+      message: "#{asker.username} sent you a friend request.",
+      asker_id: self.asker.id,
+      receiver_id: self.receiver.id
     ).deliver_later(receiver)
   end
 
   def notify_receiver
     FriendshipNotification.with(
-      message: "#{receiver.username} accepted your friend request."
+      message: "#{receiver.username} accepted your friend request.",
+      receiver_id: self.receiver.id,
+      asker_id: self.asker.id
     ).deliver_later(asker)
   end
 end
