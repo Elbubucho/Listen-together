@@ -1,0 +1,11 @@
+<div id="new-comment-form">
+  <%= simple_form_for [@post, @comment], html: { class: "flex flex-col gap-2" } do |f| %>
+    <%= f.input :content,
+          label: false,
+          placeholder: 'What do you think ?' %>
+    <div class="flex justify-center">
+      <%= f.submit "Send", class: "btn btn-primary w-full" %>
+      <%# rechargement turbo stream a faire  %>
+    </div>
+  <% end %>
+</div>
