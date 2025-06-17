@@ -5,10 +5,11 @@
       <%= @user&.username || @single_room.name %>
     </h4>
     <%=  turbo_stream_from @single_room %>
-    <div id="messages">
+    <div id="messages" data-controller="scroll" class="h-150 overflow-y-auto pb-2">
       <%= render @messages %>
     </div>
   </div>
-    <%= render 'shared/new_message_form' %>
+
   </div>
   <% end %>
+   <%= render 'shared/new_message_form' %>

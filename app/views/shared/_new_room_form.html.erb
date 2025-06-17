@@ -1,4 +1,4 @@
-<%=  simple_form_for @room,  html: { class: "w-full max-w-xs mx-auto p-4 rounded shadow flex flex-col space-y-3" }, data: { turbo: false }  do |f| %>
+<%=  simple_form_for @room,  html: { class: "w-full max-w-xs mx-auto p-4 rounded shadow flex flex-col space-y-3", data: {controller: "reset-form", action: "turbo:submit-end->reset-form#reset"} }, do |f| %>
   <div class="form-inputs">
   <%= f.input :name, input_html: {autocomplete: 'off'} %>
   </div>
