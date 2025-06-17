@@ -6,13 +6,21 @@
         <%= f.input :content, label: "Share your thoughts", input_html: {class:"resize-none"} %>
         <%= f.input :mood, label: "Mood*", as: :select, collection: Post::MOODS %>
         <%= f.label :track_search, "Pick a song*", class:"text-sm" %>
-        <input type="text" class="input input-bordered w-80 max-w-full" data-track-select-target="input" placeholder="Type a song title or an artist" />
-        <ul id="track-results" data-track-select-target="results" class="ms-4 me-4 "></ul>
+
+        <div class="relative">
+          <input
+            type="text"
+            class="input input-bordered w-80 max-w-full"
+            data-track-select-target="input"
+            data-action="input->track-select#search"
+            placeholder="Type a song title or an artist"
+          />
+          <ul data-track-select-target="results" class="absolute z-50 mt-1 w-80 bg-base-200 border-base-300 rounded shallow hidden"></ul>
+        </div>
         <%= f.input :track_id, as: :hidden, input_html: { data: { track_select_target: "iframe" } } %>
         <%= f.input :cover_url, as: :hidden, input_html: { data: { track_select_target: "cover" } } %>
         <%= f.button :submit, "Post", class: "btn btn-primary w-80 mt-4" %>
       <% end %>
-
     </fieldset>
  </div>
 </div>
