@@ -32,7 +32,7 @@ class PostsController < ApplicationController
         id: track.id,
         name: track.name,
         artist: track.artists.first.name,
-        cover: track.album.images.first["url"],
+        cover: track.album.images.first["url"]
       }
     }
   end

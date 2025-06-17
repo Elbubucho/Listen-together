@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_06_16_084700) do
+ActiveRecord::Schema[7.1].define(version: 2025_06_16_170638) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,13 +40,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_16_084700) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
-  end
-
-  create_table "chats", force: :cascade do |t|
-    t.bigint "user_mood_music_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_mood_music_id"], name: "index_chats_on_user_mood_music_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -79,14 +72,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_16_084700) do
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
-  create_table "participants", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "room_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["room_id"], name: "index_participants_on_room_id"
-    t.index ["user_id"], name: "index_participants_on_user_id"
-
   create_table "notifications", force: :cascade do |t|
     t.string "recipient_type", null: false
     t.bigint "recipient_id", null: false
@@ -97,6 +82,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_16_084700) do
     t.datetime "updated_at", null: false
     t.index ["read_at"], name: "index_notifications_on_read_at"
     t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
+  end
+
+  create_table "participants", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "room_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_participants_on_room_id"
+    t.index ["user_id"], name: "index_participants_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|

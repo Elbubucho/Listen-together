@@ -19,7 +19,7 @@
           <% elsif @existing_friendship.receiver == current_user %>
             <%= link_to "Accept friend request", friendship_path(@existing_friendship),
                 data: { turbo_method: :patch },
-                class: "btn btn-primary btn-outline" %>
+                class: "btn btn-primary btn-outline"%>
           <% end %>
         </div>
       <% end %>
