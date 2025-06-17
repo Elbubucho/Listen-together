@@ -254,6 +254,7 @@ GEM
       omniauth (~> 2.0)
     orm_adapter (0.5.0)
     ostruct (0.6.1)
+    pagy (9.3.4)
     pg (1.5.9)
     pp (0.6.2)
       prettyprint
@@ -404,6 +405,7 @@ DEPENDENCIES
   jbuilder
   noticed (~> 1.6)
   ostruct
+  pagy (~> 9.3)
   pg (~> 1.1)
   puma (>= 5.0)
   rails (~> 7.1.5, >= 7.1.5.1)
