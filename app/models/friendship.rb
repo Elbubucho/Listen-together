@@ -6,7 +6,7 @@ class Friendship < ApplicationRecord
   validate :asker_and_receiver_cannot_be_the_same
 
   after_create_commit :notify_asker
-  after_update_commit :notify_receiver
+  after_update_commit :notify_receiver, if: :just_confirmed?
 
   def other_user(user)
     user == asker ? receiver : asker
@@ -34,5 +34,9 @@ class Friendship < ApplicationRecord
       receiver_id: self.receiver.id,
       asker_id: self.asker.id
     ).deliver_later(asker)
+  end
+
+  def just_confirmed?
+     saved_change_to_confirmed? && confirmed?
   end
 end
