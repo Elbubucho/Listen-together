@@ -1,0 +1,15 @@
+<turbo-stream target="search_results" action="update">
+  <template>
+    <% if @results.present? %>
+      <ul class="space-y-2">
+        <% @results.each do |user| %>
+          <li>
+            <%= link_to user.username, user_path(user), class: "block p-2 rounded bg-base-100 hover:bg-base-200", data: { turbo: true } %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="text-center text-gray-500 mt-4">No results found.</p>
+    <% end %>
+  </template>
+</turbo-stream>
