@@ -5,16 +5,20 @@ class Friendship < ApplicationRecord
   validates :asker_id, uniqueness: { scope: :receiver_id }
   validate :asker_and_receiver_cannot_be_the_same
 
+  after_create_commit :notify_asker
+  after_update_commit :notify_receiver, if: :just_confirmed?
+
+  def other_user(user)
+    user == asker ? receiver : asker
+  end
+
+  private
+
   def asker_and_receiver_cannot_be_the_same
     if asker_id == receiver_id
       errors.add(:receiver_id, "can't be the same as asker")
     end
   end
-
-  after_create_commit :notify_asker
-  after_update_commit :notify_receiver, if: :just_confirmed?
-
-  private
 
   def notify_asker
     FriendshipNotification.with(
