@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  helper MetaTagsHelper
   before_action :authenticate_user!, :set_notifications
   before_action :set_notifications, if: :user_signed_in?
 

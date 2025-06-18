@@ -1,3 +1,14 @@
+<% content_for :meta_title, "#{@post.user.username.capitalize}'s post – Listen Together" %>
+<% content_for :meta_description, truncate(@post.content, length: 140) %>
+
+<% if @post.cover_url.present? %>
+  <% content_for :meta_image, @post.cover_url %>
+<% else %>
+  <% content_for :meta_image, "logo-together.png" %>
+<% end %>
+
+
+
 <div class="flex items-center justify-center py-10 bg-base-100">
   <div class="card border border-l-2 border-primary bg-base-200 w-96 shadow-md">
     <div class="card-body">
