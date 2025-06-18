@@ -1,3 +1,11 @@
+<% content_for :meta_title, "#{@user.username.capitalize} – Listen Together profile" %>
+<% content_for :meta_description, "#{@user.username} is sharing moods and music with friends on Listen Together." %>
+<% if @user.avatar.attached? %>
+  <% content_for :meta_image, cl_image_path(@user.avatar.key) %>
+<% else %>
+  <% content_for :meta_image, image_url("default_avatar.png") %>
+<% end %>
+
 <div class="card w-full bg-base-100 shadow-xl border-b">
   <div class="card-body items-center">
     <% if @is_own_profile %>
