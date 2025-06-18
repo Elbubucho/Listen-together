@@ -1,76 +1,83 @@
-  <div class="card w-full bg-base-100 shadow-xl border-b">
-    <div class="card-body items-center">
-      <% if @is_own_profile %>
+<div class="card w-full bg-base-100 shadow-xl border-b">
+  <div class="card-body items-center">
+    <% if @is_own_profile %>
       <div class="w-full flex justify-end mb-2">
         <%= link_to "⚙️", user_edit_profile_path(@user), class: "btn btn-sm btn-primary" %>
       </div>
-      <% end %>
-      <%= render "shared/avatar", user: @user, class: "avatar w-24 h-24 mb-2" %>
+    <% end %>
 
-      <h1 class="card-title text-2xl font-bold text-center mb-1">
-        <%= @user.username.capitalize %>
-      </h1>
-      <% unless @is_own_profile || (@existing_friendship && @existing_friendship.confirmed?)%>
+    <%= render "shared/avatar", user: @user, class: "avatar w-24 h-24 mb-2" %>
+
+    <h1 class="card-title text-2xl font-bold text-center mb-1">
+      <%= @user.username.capitalize %>
+    </h1>
+
+    <% unless @is_own_profile || (@existing_friendship && @existing_friendship.confirmed?) %>
+      <turbo-frame id="friendship_buttons_<%= @user.id %>">
         <div class="flex justify-center gap-3 w-full mb-4">
           <% if @existing_friendship.nil? %>
-            <%= link_to "Add as friend", friendships_path(receiver_id: @user.id),
-                data: { turbo_method: :post },
-                class: "btn btn-outline btn-primary" %>
+            <%= link_to "Add as friend",
+                        friendships_path(receiver_id: @user.id),
+                        data: { turbo_method: :post },
+                        class: "btn btn-outline btn-primary" %>
           <% elsif @existing_friendship.receiver == current_user %>
-            <%= link_to "Accept friend request", friendship_path(@existing_friendship),
-                data: { turbo_method: :patch },
-                class: "btn btn-primary btn-outline"%>
+            <%= link_to "Accept friend request",
+                        friendship_path(@existing_friendship),
+                        data: { turbo_method: :patch },
+                        class: "btn btn-primary btn-outline" %>
           <% end %>
         </div>
-      <% end %>
-      <div class="flex justify-center gap-6 text-sm mb-2">
-        <span class="font-semibold"><%= @user.posts.count %> posts</span>
-        <span>
-          <% if @is_own_profile %>
-            <%= link_to "#{@friends_count} friends", friends_user_path(@user), class: "link link-primary" %>
-          <% else %>
-            <p><%= "#{@friends_count} friends" %></p>
-          <% end %>
-        </span>
-      </div>
+      </turbo-frame>
+    <% end %>
 
-      <% if @user.bio.present? %>
-        <p class="text-base-content text-center italic mb-2"><%= @user.bio %></p>
-      <% end %>
+    <div class="flex justify-center gap-6 text-sm mb-2">
+      <span class="font-semibold"><%= @user.posts.count %> posts</span>
+      <span>
+        <% if @is_own_profile %>
+          <%= link_to "#{@friends_count} friends", friends_user_path(@user), class: "link link-primary" %>
+        <% else %>
+          <p><%= "#{@friends_count} friends" %></p>
+        <% end %>
+      </span>
     </div>
+
+    <% if @user.bio.present? %>
+      <p class="text-base-content text-center italic mb-2"><%= @user.bio %></p>
+    <% end %>
   </div>
+</div>
 
-
-  <div class="flex flex-col gap-6">
-    <% if @posts.any? %>
+<div class="flex flex-col gap-6">
+  <% if @posts.any? %>
     <% @posts.order(id: :desc).each do |post| %>
       <div class="card max-w-md bg-base-200 border border-l-2 border-primary shadow-lg shadow-2xl mx-5 sm:mx-auto p-1 my-2">
-          <div class="flex items-center gap-3 pl-2 pt-2">
-            <%= render "shared/avatar", user: post.user, class: "w-10 h-10" %>
-            <div>
-              <%= link_to post.user.username.capitalize, user_path(post.user), class: "font-semibold text-base text-base-content" %><br>
-              <span><%= post.mood %></span>
-            </div>
+        <div class="flex items-center gap-3 pl-2 pt-2">
+          <%= render "shared/avatar", user: post.user, class: "w-10 h-10" %>
+          <div>
+            <%= link_to post.user.username.capitalize, user_path(post.user), class: "font-semibold text-base text-base-content" %><br>
+            <span><%= post.mood %></span>
           </div>
+        </div>
         <div class="card-body items-center text-center">
           <p class="mb-4"><%= post.content %></p>
-            <iframe src="https://open.spotify.com/embed/track/<%= post.track_id %>"
-                    width="300" height="80" frameborder="0"
-                    allowtransparency="true" allow="encrypted-media">
-            </iframe>
+          <iframe src="https://open.spotify.com/embed/track/<%= post.track_id %>"
+                  width="300" height="80" frameborder="0"
+                  allowtransparency="true" allow="encrypted-media">
+          </iframe>
 
           <div class="card-actions justify-start w-full mt-4 flex items-center space-x-4 px-1">
             <%= render partial: "reactions/button", locals: { post: post } %>
 
             <%= link_to post_path(post.id), class: "text-primary" do %>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                  viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                  class="w-6 h-6 hover:scale-110 transition">
+                   viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                   class="w-6 h-6 hover:scale-110 transition">
                 <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
+                      d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
               </svg>
             <% end %>
           </div>
+
           <% if post.user == current_user %>
             <div class="absolute top-2 right-2">
               <%= button_to post_path(post), method: :delete, data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, class: "text-error hover:text-red-700 transition" do %>
