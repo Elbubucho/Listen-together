@@ -79,5 +79,3 @@ end
 gem 'ostruct'
 
 gem "noticed", "~> 1.6"
-
-gem 'aws-sdk-s3'
