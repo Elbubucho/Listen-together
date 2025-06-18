@@ -7,7 +7,7 @@ class Room < ApplicationRecord
   after_create_commit {broadcast_if_public }
 
   def broadcast_if_public
-    broadcast_append_to "rooms" if self.is_private
+    broadcast_append_to "rooms" unless self.is_private
   end
 
   def self.create_private_room(users, room_name)
@@ -16,5 +16,9 @@ class Room < ApplicationRecord
       Participant.create(user_id: user.id, room_id: single_room.id)
     end
     single_room
+  end
+
+  def latest_message
+    messages.includes(:user).order(created_at: :desc).first
   end
 end
