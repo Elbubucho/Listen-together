@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
     else
       respond_to do |format|
         format.turbo_stream do
-          render turbo_stream: turbo_stream.replace("new_comment_form", partial: "comments/form", locals: { comment: @comment })
+          render turbo_stream: turbo_stream.replace("new_comment_form", partial: "comments/form", locals: { comment: Comment.new })
         end
         format.html { redirect_to post_path(@post), status: :unprocessable_entity }
       end

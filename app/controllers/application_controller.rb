@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate_user!, :set_notifications
+  before_action :authenticate_user!
+  before_action :set_notifications, if: :user_signed_in?
 
   private
 
