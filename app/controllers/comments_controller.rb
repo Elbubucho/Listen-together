@@ -12,7 +12,12 @@ class CommentsController < ApplicationController
         format.html { redirect_to post_path(@post), notice: "Comment was successfully created." }
       end
     else
-      redirect_to post_path(@post), status: :unprocessable_entity
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace("new_comment_form", partial: "comments/form", locals: { comment: Comment.new })
+        end
+        format.html { redirect_to post_path(@post), status: :unprocessable_entity }
+      end
     end
   end
 
