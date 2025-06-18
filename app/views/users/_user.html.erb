@@ -1,6 +1,13 @@
-<div class="flex items-center space-x-4 p-3 rounded-lg bg-base-100 hover:bg-base-200 transition-colors duration-200">
-  <%= link_to chat_path(user), data: { turbo: false }, class: "flex items-center space-x-4 w-full" do %>
+<div class="flex items-start p-3 rounded-lg bg-base-200 hover:bg-base-100 transition-colors duration-200 w-full">
+  <%= link_to chat_path(user), data: { turbo: false }, class: "flex items-start w-full" do %>
     <%= render "shared/avatar", user: user %>
-    <span class="font-medium text-base-content"><%= user.username %></span>
+    <div class="flex flex-col ml-4 flex-1">
+      <span class="font-medium text-base-content"><%= user.username %></span>
+      <div class="flex justify-between items-center text-sm text-base-content/70 mt-1 w-full">
+        <%= turbo_frame_tag [dom_id(room), "user_last_message"] do %>
+          <%= render "users/last_message", last_message: last_message, sender: sender %>
+        <% end %>
+      </div>
+    </div>
   <% end %>
 </div>
