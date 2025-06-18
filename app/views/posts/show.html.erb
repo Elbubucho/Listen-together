@@ -38,19 +38,15 @@
 <div class="flex flex-col items-center justify-center max-w-3xl mx-auto">
   <div class="w-full max-w-3xl mx-auto mb-6">
     <h3 class="text-2xl font-semibold mb-4 text-center text-shadow-lg">Leave a comment...</h3>
-    <%= simple_form_for [@post, @comment], html: { class: "flex flex-col gap-2" } do |f| %>
-      <%= f.input :content,
-            label: false,
-            placeholder: 'What do you think ?' %>
-      <div class="flex justify-center">
-        <%= f.submit "Send", class: "btn btn-primary w-full" %>
-        <%# rechargement turbo stream a faire  %>
+      <div id="new-comment-form">
+        <%= render "comments/form", post: @post %>
       </div>
-    <% end %>
   </div>
 
   <p class="p-4 pb-2 font-bold text-shadow-md">Comments</p>
-  <ul class="list bg-base-200 rounded-box shadow-md w-95">
-      <%= render "comments/comment", post: @post %>
-  </ul>
+    <div id="comments" class="list bg-base-200 rounded-box shadow-md w-95">
+    <% @post.comments.order(id: :desc).each do |comment|%>
+      <%= render "comments/comment", comment: comment %>
+    <% end %>
+    </div>
 </div>
