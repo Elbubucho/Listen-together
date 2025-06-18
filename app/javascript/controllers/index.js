@@ -8,3 +8,6 @@ application.register("user-search", UserSearchController)
 
 import ToggleSearchController from "./toggle_search_controller"
 application.register("toggle-search", ToggleSearchController)
+
+import TrackSelectController from "./track_select_controller"
+application.register("track-select", TrackSelectController)

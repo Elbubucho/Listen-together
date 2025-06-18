@@ -3,43 +3,59 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["input", "results", "iframe", "cover"]
 
-  timeout = null
-
   connect() {
-    console.log("Connecté au formulaire")
+    this.clickOutsideHandler = this.handleClickOutside.bind(this)
+    document.addEventListener("click", this.clickOutsideHandler)
   }
 
-  searchTracks(query) {
-    fetch(`/tracks/autocomplete?query=${encodeURIComponent(query)}`)
-      .then(res => res.json())
-      .then(data => {
-        this.resultsTarget.innerHTML = ""
-        data.forEach(track => {
-          const li = document.createElement("li")
-          li.classList.add("pt-2")
-          li.textContent = `${track.name} — ${track.artist}`
-          li.addEventListener("click", () => {
-            this.inputTarget.value = `${track.name} — ${track.artist}`
-            this.iframeTarget.value = track.id
-            this.coverTarget.value = track.cover
-            this.resultsTarget.innerHTML = ""
-          })
-          this.resultsTarget.appendChild(li)
-        })
-      })
+  disconnect() {
+    document.removeEventListener("click", this.clickOutsideHandler)
   }
 
-  inputTargetConnected() {
-    this.inputTarget.addEventListener("input", () => {
-      clearTimeout(this.timeout)
-      this.timeout = setTimeout(() => {
-        const query = this.inputTarget.value
-        if (query.length > 1) this.searchTracks(query)
-      }, 300)
+  handleClickOutside(event) {
+    const clickedOutsideInput = !this.inputTarget.contains(event.target)
+    const clickedOutsideResults = !this.resultsTarget.contains(event.target)
+
+    if (clickedOutsideInput && clickedOutsideResults) {
+      this.resultsTarget.innerHTML = ""
+      this.resultsTarget.classList.add("hidden")
+    }
+  }
+
+  async search() {
+    const query = this.inputTarget.value.trim()
+
+    if (query.length < 2) {
+      this.resultsTarget.innerHTML = ""
+      this.resultsTarget.classList.add("hidden")
+      return
+    }
+
+    const response = await fetch(`/tracks/autocomplete?query=${encodeURIComponent(query)}`)
+    const tracks = await response.json()
+
+    this.resultsTarget.innerHTML = ""
+
+    tracks.forEach(track => {
+      const li = document.createElement("li")
+      li.textContent = `${track.name} - ${track.artist}`
+      li.className = "px-4 py-2 bg-base-200 hover:bg-primary hover:text-white transition cursor-pointer"
+      li.addEventListener("click", () => this.selectTrack(track))
+      this.resultsTarget.appendChild(li)
     })
+
+    if (tracks.length > 0) {
+      this.resultsTarget.classList.remove("hidden")
+    } else {
+      this.resultsTarget.classList.add("hidden")
+    }
   }
 
-    clear() {
-    this.element.reset()
+  selectTrack(track) {
+    this.inputTarget.value = `${track.name} - ${track.artist}`
+    this.iframeTarget.value = track.id
+    this.coverTarget.value = track.cover
+    this.resultsTarget.innerHTML = ""
+    this.resultsTarget.classList.add("hidden")
   }
 }
