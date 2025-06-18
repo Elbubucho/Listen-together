@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
   def create
+    @single_room = Room.find(params[:id])
     @message = current_user.messages.new(body: msg_params[:body], room_id: params[:room_id])
       if @message.save
         respond_to do |format|
