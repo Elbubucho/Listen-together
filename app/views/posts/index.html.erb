@@ -1,5 +1,9 @@
 <%= render "shared/posts_filter" %>
-<%= link_to "💬", rooms_path %>
+<div>
+  <%= link_to "💬", rooms_path %>
+  <%= turbo_stream_from "message_#{current_user.id}_indicator", id: "message_indicator_stream" %>
+  <%= render "notifications/message_indicator", user: current_user %>
+</div>
 <div class="min-h-screen bg-base-100 py-5 px-4 sm:px-0">
   <div class="flex flex-col gap-6">
     <% if @posts.any? %>

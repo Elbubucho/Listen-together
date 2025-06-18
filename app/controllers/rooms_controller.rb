@@ -5,6 +5,9 @@ class RoomsController < ApplicationController
     @rooms = Room.public_rooms
     @user = current_user
     @users = @user.friends
+
+    @notifications = current_user.notifications.where(type: "MessageNotification")
+    @notifications.mark_as_read!
   end
 
   def show
