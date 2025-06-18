@@ -1,0 +1,6 @@
+<% unless last_message.nil? %>
+  <div>
+    <div>
+      <em class="last-message"> <%= "#{last_message.body.body.to_plain_text} sent".truncate(40) %></em>
+    </div>
+  </div>
