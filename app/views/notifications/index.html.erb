@@ -1,6 +1,6 @@
   <%= turbo_stream_from "notifications_#{current_user.id}_list", id: "notification_stream" %>
-    <div id="notification-list" class="bg-white shadow-lg rounded">
-      <div class="p-4 space-y-2">
+    <div class="bg-white shadow-lg rounded">
+      <div id="notification-list" class="p-4 space-y-2">
         <% if @notifications.any? %>
           <%= render @notifications.order(created_at: :desc), current_user: current_user %>
         <% else %>
