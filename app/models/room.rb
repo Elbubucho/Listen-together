@@ -17,4 +17,8 @@ class Room < ApplicationRecord
     end
     single_room
   end
+
+  def latest_message
+    messages.includes(:user).order(created_at: :desc).first
+  end
 end
