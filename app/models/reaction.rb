@@ -12,7 +12,8 @@ class Reaction < ApplicationRecord
     return if post.user == user
 
     ReactionNotification.with(
-      message: "#{user.username} liked your post."
+      message: "#{user.username} liked your post.",
+      post_id: self.post.id
     ).deliver_later(post.user)
   end
 end

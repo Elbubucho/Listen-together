@@ -12,19 +12,27 @@ class Friendship < ApplicationRecord
   end
 
   after_create_commit :notify_asker
-  after_update_commit :notify_receiver
+  after_update_commit :notify_receiver, if: :just_confirmed?
 
   private
 
   def notify_asker
     FriendshipNotification.with(
-      message: "#{asker.username} sent you a friend request."
+      message: "#{asker.username} sent you a friend request.",
+      asker_id: self.asker.id,
+      receiver_id: self.receiver.id
     ).deliver_later(receiver)
   end
 
   def notify_receiver
     FriendshipNotification.with(
-      message: "#{receiver.username} accepted your friend request."
+      message: "#{receiver.username} accepted your friend request.",
+      receiver_id: self.receiver.id,
+      asker_id: self.asker.id
     ).deliver_later(asker)
+  end
+
+  def just_confirmed?
+     saved_change_to_confirmed? && confirmed?
   end
 end
