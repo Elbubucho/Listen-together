@@ -1,14 +1,15 @@
 <div class="p-2">
-  <div id="comment-<%= comment.id %>" class="comment flex">
-    <%= link_to user_path(comment.user), class: "block w-auto" do %>
-      <%= render "shared/avatar_small", user: comment.user %>
-          <div class="flex items-center">
-            <p class="ms-1 font-semibold truncate text-shadow-md"><%= comment.user.username.capitalize %></p>
-    <% end %>
-            <p class="ms-2 text-xs opacity-60 tracking-wide"><%= time_ago_in_words(comment.created_at) %> ago</p>
-          </div>
-  </div>
-  <p class="ps-10 text-xs">
-      <%= comment.content %>
-  </p>
+      <div id="comment-<%= comment.id %>" class="comment flex">
+      <%= link_to user_path(comment.user), class: "block w-auto" do %>
+        <%= render "shared/avatar_small", user: comment.user %>
+            <div class="flex items-center">
+              <p class="ms-1 font-semibold truncate text-shadow-md"><%= comment.user.username.capitalize %></p>
+      <% end %>
+              <p class="ms-2 text-xs opacity-60 tracking-wide"><%= time_ago_in_words(comment.created_at) %> ago</p>
+            </div>
+    </div>
+    <p class="ps-10 text-xs">
+        <%= comment.content %>
+    </p>
+  <%= end %>
 </div>
