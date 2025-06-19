@@ -4,8 +4,10 @@
     <div class="flex flex-col ml-4 flex-1">
       <span class="font-medium text-base-content"><%= user.username %></span>
       <div class="flex justify-between items-center text-sm text-base-content/70 mt-1 w-full">
-        <%= turbo_frame_tag [dom_id(room), "user_last_message"] do %>
-          <%= render "users/last_message", last_message: last_message, sender: sender %>
+        <% if defined?(room) && room.present? %>
+          <%= turbo_frame_tag [dom_id(room), "user_last_message"] do %>
+            <%= render "users/last_message", last_message: last_message, sender: sender %>
+          <% end %>
         <% end %>
       </div>
     </div>
