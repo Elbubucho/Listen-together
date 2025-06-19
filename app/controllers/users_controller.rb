@@ -1,18 +1,6 @@
 class UsersController < ApplicationController
+    include RoomsHelper
   before_action :authenticate_user!, :set_user, only: [:show, :chat, :friends]
-
-  def index
-    if params[:query].present?
-      @users = User.where("username ILIKE ?", "%#{params[:query]}%")
-    else
-      @users = User.none
-    end
-  end
-
-  def autocomplete
-    users = User.where("username ILIKE ?", "%#{params[:query]}%").limit(5)
-    render json: users.map { |u| { id: u.id, name: u.username } }
-  end
 
   def edit_profile
     @user = current_user
@@ -81,10 +69,5 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:username, :avatar_url, :bio)
-  end
-
-  def get_name(user1, user2)
-    user = [user1, user2].sort
-    "private_#{user[0].id}_#{user[1].id}"
   end
 end

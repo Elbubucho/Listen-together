@@ -9,7 +9,7 @@
 
 
 <div class="max-w-md mx-auto p-6">
-  <h1 class="text-xl font-bold mb-4">Modifier mon profil</h1>
+  <h1 class="text-xl font-bold mb-4">Edit my profile</h1>
   <%= simple_form_for(current_user, url: user_update_profile_path, html: { method: :patch, data: {turbo: false} }) do |f| %>
     <%= f.error_notification %>
     <div class="form-inputs">

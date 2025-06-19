@@ -7,61 +7,62 @@
   <% content_for :meta_image, "social-preview.png" %>
 <% end %>
 
+  <div class="pb-30">
+    <div class="flex items-center justify-center py-5 bg-base-100">
+      <div class="card border border-l-2 border-primary bg-base-200 w-96 shadow-md">
+        <div class="card-body">
+          <div class="card-title">
+            <h2 class="font-bold text-xl mb-2 text-center text-neutral text-shadow-md">
+                <% avatar_and_name = render("shared/avatar", user: @post.user) + " #{@post.user.username.capitalize}" %>
+                <%= link_to avatar_and_name.html_safe, user_path(@post.user), class: "block" %>
+            </h2>
+          </div>
+          <span class="text-lg font-bold"><%= @post.mood %> mood</span>
+          <p class="text-lg mb-4"><%= @post.content %></p>
 
 
-<div class="flex items-center justify-center py-10 bg-base-100">
-  <div class="card border border-l-2 border-primary bg-base-200 w-96 shadow-md">
-    <div class="card-body">
-      <h2 class="card-title font-bold text-2xl mb-2 text-center text-shadow-md">
-          <% avatar_and_name = render("shared/avatar", user: @post.user) + " #{@post.user.username.capitalize}'s" %>
-          <%= link_to avatar_and_name.html_safe, user_path(@post.user), class: "block" %>
-      </h2>
-      <span class= "font-bold pl-10"><%= @post.mood %></span>
-      <p class="text-xl mb-4"><%= @post.content %></p>
-
-      <div class="flex justify-center my-4">
-        <iframe src="https://open.spotify.com/embed/track/<%= @post.track_id %>"
-                width="300" height="80" frameborder="0"
-                allowtransparency="true" allow="encrypted-media">
-        </iframe>
-      </div>
-
-      <div class="text-center">
-        <%= render partial: "reactions/button", locals: { post: @post, reaction: @reaction } %>
-      </div>
-      <% if @post.user == current_user %>
-        <div class="absolute top-2 right-2">
-          <%= button_to post_path(@post), method: :delete,
-                        data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" },
-                        class: "text-error hover:text-red-700 transition" do %>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          <% end %>
+        <div class="flex justify-start my-4">
+          <iframe src="https://open.spotify.com/embed/track/<%= @post.track_id %>"
+                  width="300" height="80" frameborder="0"
+                  allowtransparency="true" allow="encrypted-media">
+          </iframe>
         </div>
-      <% end %>
+
+        <div class="text-center">
+          <%= render partial: "reactions/button", locals: { post: @post, reaction: @reaction } %>
+        </div>
+        <% if @post.user == current_user %>
+          <div class="dropdown dropdown-bottom dropdown-end absolute top-2 right-2">
+            <div tabindex="0" role="button" class="btn m-1">
+              <svg fill="#4d3d75" width="24px" height="24px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M388.8 896.4v-27.198c.6-2.2 1.6-4.2 2-6.4 8.8-57.2 56.4-102.4 112.199-106.2 62.4-4.4 115.2 31.199 132.4 89.199 2.2 7.6 3.8 15.6 5.8 23.4v27.2c-.6 1.8-1.6 3.399-1.8 5.399-8.6 52.8-46.6 93-98.6 104.4-4 .8-8 2-12 3h-27.2c-1.8-.6-3.6-1.6-5.4-1.8-52-8.4-91.599-45.4-103.6-96.8-1.2-5-2.6-9.6-3.8-14.2zm252.4-768.797l-.001 27.202c-.6 2.2-1.6 4.2-1.8 6.4-9 57.6-56.8 102.6-113.2 106.2-62.2 4-114.8-32-131.8-90.2-2.2-7.401-3.8-15-5.6-22.401v-27.2c.6-1.8 1.6-3.4 2-5.2 9.6-52 39.8-86 90.2-102.2 6.6-2.2 13.6-3.4 20.4-5.2h27.2c1.8.6 3.6 1.6 5.4 1.8 52.2 8.6 91.6 45.4 103.6 96.8 1.201 4.8 2.401 9.4 3.601 13.999zm-.001 370.801v27.2c-.6 2.2-1.6 4.2-2 6.4-9 57.4-58.6 103.6-114.6 106-63 2.8-116.4-35.2-131.4-93.8-1.6-6.2-3-12.4-4.4-18.6v-27.2c.6-2.2 1.6-4.2 2-6.4 8.8-57.4 58.6-103.601 114.6-106.2 63-3 116.4 35.2 131.4 93.8 1.6 6.4 3 12.6 4.4 18.8z"></path></g></svg>
+                </div>
+                <ul tabindex="0" class="dropdown-content menu bg-base-200 rounded-box z-1 w-24 p-2 shadow-sm">
+                  <li><%= button_to post_path(@post), method: :delete,
+                                data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" },
+                                class: "flex items-start text-error hover:bg-base transition" do %>
+                    <svg width="16px" height="16px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M1.5 3.75C1.08579 3.75 0.75 4.08579 0.75 4.5C0.75 4.91421 1.08579 5.25 1.5 5.25V3.75ZM22.5 5.25C22.9142 5.25 23.25 4.91421 23.25 4.5C23.25 4.08579 22.9142 3.75 22.5 3.75V5.25ZM1.5 5.25H22.5V3.75H1.5V5.25Z" fill="#ba1a1a"></path> <path d="M9.75 1.5V0.75V1.5ZM8.25 3H7.5H8.25ZM7.5 4.5C7.5 4.91421 7.83579 5.25 8.25 5.25C8.66421 5.25 9 4.91421 9 4.5H7.5ZM15 4.5C15 4.91421 15.3358 5.25 15.75 5.25C16.1642 5.25 16.5 4.91421 16.5 4.5H15ZM15.75 3H16.5H15.75ZM14.25 0.75H9.75V2.25H14.25V0.75ZM9.75 0.75C9.15326 0.75 8.58097 0.987053 8.15901 1.40901L9.21967 2.46967C9.36032 2.32902 9.55109 2.25 9.75 2.25V0.75ZM8.15901 1.40901C7.73705 1.83097 7.5 2.40326 7.5 3H9C9 2.80109 9.07902 2.61032 9.21967 2.46967L8.15901 1.40901ZM7.5 3V4.5H9V3H7.5ZM16.5 4.5V3H15V4.5H16.5ZM16.5 3C16.5 2.40326 16.2629 1.83097 15.841 1.40901L14.7803 2.46967C14.921 2.61032 15 2.80109 15 3H16.5ZM15.841 1.40901C15.419 0.987053 14.8467 0.75 14.25 0.75V2.25C14.4489 2.25 14.6397 2.32902 14.7803 2.46967L15.841 1.40901Z" fill="#ba1a1a"></path> <path d="M9 17.25C9 17.6642 9.33579 18 9.75 18C10.1642 18 10.5 17.6642 10.5 17.25H9ZM10.5 9.75C10.5 9.33579 10.1642 9 9.75 9C9.33579 9 9 9.33579 9 9.75H10.5ZM10.5 17.25V9.75H9V17.25H10.5Z" fill="#ba1a1a"></path> <path d="M13.5 17.25C13.5 17.6642 13.8358 18 14.25 18C14.6642 18 15 17.6642 15 17.25H13.5ZM15 9.75C15 9.33579 14.6642 9 14.25 9C13.8358 9 13.5 9.33579 13.5 9.75H15ZM15 17.25V9.75H13.5V17.25H15Z" fill="#ba1a1a"></path> <path d="M18.865 21.124L18.1176 21.0617L18.1176 21.062L18.865 21.124ZM17.37 22.5L17.3701 21.75H17.37V22.5ZM6.631 22.5V21.75H6.63093L6.631 22.5ZM5.136 21.124L5.88343 21.062L5.88341 21.0617L5.136 21.124ZM4.49741 4.43769C4.46299 4.0249 4.10047 3.71818 3.68769 3.75259C3.2749 3.78701 2.96818 4.14953 3.00259 4.56231L4.49741 4.43769ZM20.9974 4.56227C21.0318 4.14949 20.7251 3.78698 20.3123 3.75259C19.8995 3.7182 19.537 4.02495 19.5026 4.43773L20.9974 4.56227ZM18.1176 21.062C18.102 21.2495 18.0165 21.4244 17.878 21.5518L18.8939 22.6555C19.3093 22.2732 19.5658 21.7486 19.6124 21.186L18.1176 21.062ZM17.878 21.5518C17.7396 21.6793 17.5583 21.75 17.3701 21.75L17.3699 23.25C17.9345 23.25 18.4785 23.0379 18.8939 22.6555L17.878 21.5518ZM17.37 21.75H6.631V23.25H17.37V21.75ZM6.63093 21.75C6.44274 21.75 6.26142 21.6793 6.12295 21.5518L5.10713 22.6555C5.52253 23.0379 6.06649 23.25 6.63107 23.25L6.63093 21.75ZM6.12295 21.5518C5.98449 21.4244 5.89899 21.2495 5.88343 21.062L4.38857 21.186C4.43524 21.7486 4.69172 22.2732 5.10713 22.6555L6.12295 21.5518ZM5.88341 21.0617L4.49741 4.43769L3.00259 4.56231L4.38859 21.1863L5.88341 21.0617ZM19.5026 4.43773L18.1176 21.0617L19.6124 21.1863L20.9974 4.56227L19.5026 4.43773Z" fill="#ba1a1a"></path> </g></svg>
+                    <p class=" ms-1">Delete</p>
+                    <% end %>
+                  </li>
+                </ul>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="flex flex-col items-center justify-center max-w-3xl mx-auto">
-  <div class="w-full max-w-3xl mx-auto mb-6">
-    <h3 class="text-2xl font-semibold mb-4 text-center text-shadow-lg">Leave a comment...</h3>
-    <%= simple_form_for [@post, @comment], html: { class: "flex flex-col gap-2" } do |f| %>
-      <%= f.input :content,
-            label: false,
-            placeholder: 'What do you think ?' %>
-      <div class="flex justify-center">
-        <%= f.submit "Send", class: "btn btn-primary w-full" %>
-        <%# rechargement turbo stream a faire  %>
+  <div class="flex flex-col items-center justify-center max-w-3xl">
+    <h3 class="text-lg font-semibold text-center text-shadow-md mb-3">Comments</h3>
+      <div id="comments" class="list flex flex-col bg-base-200 rounded-box shadow-md w-95 mx-6 pb-2">
+      <% @post.comments.order(id: :desc).each do |comment|%>
+        <%= render "comments/comment", comment: comment %>
+      <% end %>
       </div>
-    <% end %>
+    <div class="fixed bottom-18 w-full max-w-3xl">
+      <div id="new-comment-form" class="bg-base-100 rounded-box shadow-md mx-4">
+        <h3 class="text-lg font-semibold pt-2 mb-2 text-center text-shadow-lg">Leave a comment...</h3>
+          <%= render "comments/form", post: @post %>
+        </div>
+    </div>
   </div>
-
-  <p class="p-4 pb-2 font-bold text-shadow-md">Comments</p>
-  <ul class="list bg-base-200 rounded-box shadow-md w-95">
-      <%= render "comments/comment", post: @post %>
-  </ul>
 </div>

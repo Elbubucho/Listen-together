@@ -9,7 +9,7 @@ SimpleForm.setup do |config|
     b.optional :min_max
     b.optional :readonly
     b.use :label, class: "label-text text-sm ps-2"
-    b.use :input, class: "input input-bordered w-full"
+    b.use :input, class: "input input-bordered w-fule"
     b.use :full_error, wrap_with: { tag: 'p', class: 'text-xs text-red-600' }
     b.use :hint, wrap_with: { tag: :label, class: "label label-text-alt" }
   end

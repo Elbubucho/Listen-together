@@ -1,17 +1,14 @@
-<% post.comments.order(id: :desc).each do |comment| %>
-    <% next unless comment.persisted? %>
-    <li class="list-row border-b last:border-b-0">
-        <%= link_to user_path(comment.user), class: "block" do %>
-          <%= render "shared/avatar", user: comment.user %>
-      <div class="flex-1 min-w-0">
-        <div class="font-semibold truncate text-shadow-md"><%= comment.user.username.capitalize %></div>
-        <% end %>
-        <p class="list-col-wrap text-xs">
-          <%= comment.content %>
-        </p>
-      </div>
-      <div class="p-4 pb-2 text-xs opacity-60 tracking-wide">
-        <%= time_ago_in_words(comment.created_at) %> ago
-      </div>
-    </li>
-<% end %>
+<div class="p-2">
+  <div id="comment-<%= comment.id %>" class="comment flex">
+    <%= link_to user_path(comment.user), class: "block w-auto" do %>
+      <%= render "shared/avatar_small", user: comment.user %>
+          <div class="flex items-center">
+            <p class="ms-1 font-semibold truncate text-shadow-md"><%= comment.user.username.capitalize %></p>
+    <% end %>
+            <p class="ms-2 text-xs opacity-60 tracking-wide"><%= time_ago_in_words(comment.created_at) %> ago</p>
+          </div>
+  </div>
+  <p class="ps-10 text-xs">
+      <%= comment.content %>
+  </p>
+</div>
