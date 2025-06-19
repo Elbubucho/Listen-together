@@ -40,5 +40,6 @@ class Room < ApplicationRecord
                         last_message: last_message,
                         sender: sender
                       })
+
   end
 end

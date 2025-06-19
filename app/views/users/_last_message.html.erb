@@ -3,8 +3,10 @@
     <em class="last-message flex-1 truncate mr-2">
       <%= "#{sender.username} : #{last_message.body}".truncate(30) %>
     </em>
-    <em class="last-message-time whitespace-nowrap text-xs text-base-content/60 ml-20">
+    <em class="last-message-time whitespace-nowrap text-xs text-base-content/60">
       <%= "#{time_ago_in_words(last_message.created_at)} ago" %>
     </em>
   </div>
+  <% else %>
+    <p> Rien</p>
 <% end %>

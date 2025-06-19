@@ -4,8 +4,10 @@ class Message < ApplicationRecord
   before_create :confirm_participant
 
   after_create_commit do
+    notify_receiver_user
     update_parent_room
     broadcast_append_to room
+
   end
 
   def confirm_participant
@@ -16,5 +18,11 @@ class Message < ApplicationRecord
 
   def update_parent_room
     room.update(last_message_at: Time.now)
+  end
+
+  def notify_receiver_user
+    room.participants.where.not(user_id: user_id).each do |participant|
+    MessageNotification.with(message: self.body).deliver(participant.user)
+  end
   end
 end
