@@ -63,10 +63,14 @@
               </svg>
     </div>
       <div id="comments" class="list flex flex-col bg-base-200 rounded-box shadow-md w-95 mx-6 pb-2">
-      <% @post.comments.order(id: :desc).each do |comment|%>
-        <%= render "comments/comment", comment: comment %>
+      <% if @post.comments.any? %>
+        <% @post.comments.order(id: :desc).each do |comment|%>
+          <%= render "comments/comment", comment: comment %>
+        <% end %>
+        </div>
+      <% else %>
+        <p class="text-center text-ms py-4">You have no comment yet.</p>
       <% end %>
-      </div>
     <div class="fixed bottom-18 w-full max-w-3xl">
       <div id="new-comment-form" class="bg-base-100 rounded-box shadow-md mx-4 mb-2">
           <%= render "comments/form", post: @post %>
