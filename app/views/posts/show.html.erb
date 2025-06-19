@@ -52,7 +52,16 @@
   </div>
 
   <div class="flex flex-col items-center justify-center max-w-3xl px-5">
-    <h3 class="text-lg font-semibold text-center text-shadow-md mb-3">Comments</h3>
+    <div class="flex items-center mb-3">
+      <h3 class="text-lg font-semibold text-center text-shadow-md">Comments</h3>
+      <span class="text-base ms-2"><%= @post.comments.count %></span>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                  viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                  class="ms-1 w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
+              </svg>
+    </div>
       <div id="comments" class="list flex flex-col bg-base-200 rounded-box shadow-md w-95 mx-6 pb-2">
       <% @post.comments.order(id: :desc).each do |comment|%>
         <%= render "comments/comment", comment: comment %>
