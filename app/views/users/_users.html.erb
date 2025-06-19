@@ -10,7 +10,7 @@ end %>
   <% user = user_room[:user] %>
   <% room = user_room[:room] %>
   <% last_message = user_room[:last_message] %>
-  <% sender = current_user.eql?(user) ? current_user : user %>
+  <% sender = Current.user.eql?(user) ? Curent.user : user %>
   <%= render 'users/user',
              user: user,
              last_message: last_message,

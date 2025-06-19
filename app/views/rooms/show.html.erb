@@ -5,7 +5,7 @@
       Chat with <span class="font-bold"><%= @user&.username || @single_room.name %></span>
     </h4>
     <%=  turbo_stream_from @single_room %>
-    <div id="messages" data-controller="scroll" class="h-200 overflow-y-auto pb-5">
+    <div id="messages" data-controller="scroll" class="h-200 overflow-y-auto pb-20">
       <%= render @messages %>
     </div>
   </div>
