@@ -1,0 +1,28 @@
+<div class="min-h-screen bg-base-200 p-4">
+  <%= form_with url: search_path, method: :get, data: { controller: "search", turbo_frame: "search_results" } do %>
+    <input
+      type="text"
+      name="query"
+      placeholder="Search users..."
+      value="<%= params[:query] %>"
+      data-action="input->search#submit"
+      class="input w-full mb-4 bg-base-200 border border-base-content text-base-content placeholder-base-content focus:outline-none focus:ring-2 focus:ring-primary"
+    />
+  <% end %>
+
+  <turbo-frame id="search_results">
+    <% if @results.present? %>
+      <ul class="space-y-3">
+        <% @results.each do |user| %>
+          <li>
+            <%= link_to user.username, user_path(user),
+              data: { turbo: false },
+              class: "block p-3 rounded-lg bg-base-200 border border-base-content text-base-content hover:bg-base-100 transition shadow-sm" %>
+          </li>
+        <% end %>
+      </ul>
+    <% elsif params[:query].present? %>
+      <p class="text-center text-base-content mt-10">No results found.</p>
+    <% end %>
+  </turbo-frame>
+</div>
