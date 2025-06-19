@@ -3,8 +3,8 @@
                                                 data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" } } do |f| %>
     <%= f.input :content,
           label: false,
-          placeholder: 'What do you think ?',
-          input_html: { class: "w-full"} %>
+          placeholder: 'Post a new comment here',
+          input_html: { class: "w-full bg-base-200"} %>
     <%= f.submit "➤", class: "btn btn-primary text-white" %>
   <% end %>
 </div>
