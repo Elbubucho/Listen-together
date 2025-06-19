@@ -1,7 +1,8 @@
-<div class="mt-30">
-  <ul class="list bg-base-100 rounded-box shadow-md">
-    <li class="p-4 pb-2 text-[14px] opacity-90 tracking-wide">Friend List</li>
-
+<div class="mt-5">
+  <ul class="list bg-base-100 px-5">
+    <div class="flex justify-center items-center p-4 mb-2">
+      <li class="text-lg font-semibold text-center text-shadow-md tracking-wide">Friend List</li><span class="text-base ms-2"><%= current_user.friends.count %> friends</span>
+    </div>
     <% if @friends.any? %>
       <% @friends.each do |friend| %>
         <% friendship = Friendship.find_by(
@@ -9,30 +10,31 @@
              current: current_user.id, friend: friend.id
            ) %>
 
-        <li class="list-row flex items-center gap-4 p-4 border-t border-base-200">
-          <div class="avatar">
-            <%= render "shared/avatar", user: friend %>
-          </div>
-          <div>
-            <div>
-              <%= link_to friend.username.capitalize, user_path(friend), class: "font-semibold hover:underline" %>
+        <li class="list-row gap-4 p-2 mb-2 bg-base-200">
+          <div class="flex items-center">
+            <div class="avatar">
+              <%= render "shared/avatar", user: friend %>
             </div>
-
+            <div>
+              <div>
+                <%= link_to friend.username.capitalize, user_path(friend), class: "font-semibold hover:underline" %>
+              </div>
               <div class="text-[11px] font-semibold opacity-60">
                 Friends since <%= time_ago_in_words(friendship.updated_at) %> ago
               </div>
-              <div class="">
-                <%= render "shared/unfriend", friendship: friendship, friend: friend %>
-              </div>
-          </div>
+            </div>
+            </div>
+            <div class="absolute top-4 right-2">
+              <%= render "shared/unfriend", friendship: friendship, friend: friend %>
+            </div>
         </li>
       <% end %>
     <% else %>
       <li class="p-4 text-sm text-center text-gray-500">You have no friends yet.</li>
     <% end %>
+    <div class="fixed bottom-20">
+      <%= link_to "← Back to your profile", user_path(current_user), class: "btn bg-base-100 border-white btn-sm" %>
+    </div>
   </ul>
 
-  <div class="mt-6">
-    <%= link_to "← Back to your profile", user_path(current_user), class: "btn btn-outline btn-sm" %>
-  </div>
 </div>
