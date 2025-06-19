@@ -17,7 +17,7 @@ class FindPosts
   private
 
   def initial_scope
-    Post.order(id: :desc)
+    Post.order(id: :desc).limit(10)
   end
 
   def filter_by_mood(scoped, mood)
