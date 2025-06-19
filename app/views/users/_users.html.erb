@@ -1,12 +1,19 @@
-<% users.each do |user| %>
-  <% sender = current_user.eql?(user) ? current_user : user  %>
-  <% room_name = get_name(user, current_user) %>
-  <%  single_room =
-      Room.where(name: room_name).first ||
-      Room.create_private_room([user, current_user], room_name) %>
+<% users_with_rooms = users.map do |user|
+  room_name = get_name(user, current_user)
+  room = Room.where(name: room_name).first || Room.create_private_room([user, current_user], room_name)
+  { user: user, room: room, last_message: room.latest_message }
+end %>
+<% users_with_rooms.sort_by! { |user_room| user_room[:last_message]&.created_at || Time.at(0) }.reverse! %>
+
+
+<% users_with_rooms.each do |user_room| %>
+  <% user = user_room[:user] %>
+  <% room = user_room[:room] %>
+  <% last_message = user_room[:last_message] %>
+  <% sender = current_user.eql?(user) ? current_user : user %>
   <%= render 'users/user',
-            user: user,
-            last_message: single_room&.latest_message,
-            sender: sender,
-            room: single_room %>
+             user: user,
+             last_message: last_message,
+             sender: sender,
+             room: room %>
 <% end %>
