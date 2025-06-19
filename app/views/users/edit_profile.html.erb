@@ -1,5 +1,15 @@
+<% content_for :meta_title, "Edit your profile – Listen Together" %>
+<% content_for :meta_description, "Update your username, avatar, and bio to personalize your Listen Together profile." %>
+
+<% if current_user.avatar.attached? %>
+  <% content_for :meta_image, cl_image_path(current_user.avatar.key) %>
+<% else %>
+  <% content_for :meta_image, image_url("default_avatar.png") %>
+<% end %>
+
+
 <div class="max-w-md mx-auto p-6">
-  <h1 class="text-xl font-bold mb-4">Modifier mon profil</h1>
+  <h1 class="text-xl font-bold mb-4">Edit my profile</h1>
   <%= simple_form_for(current_user, url: user_update_profile_path, html: { method: :patch, data: {turbo: false} }) do |f| %>
     <%= f.error_notification %>
     <div class="form-inputs">

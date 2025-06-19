@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'searches/index'
   get 'rooms/index'
   devise_for :users, controllers: { registrations: "users/registrations" }
 
@@ -18,10 +19,6 @@ Rails.application.routes.draw do
       get :friend_requests_sent
       get :friend_requests_received
     end
-
-    collection do
-      get :autocomplete
-    end
   end
 
   resources :rooms do
@@ -36,4 +33,5 @@ Rails.application.routes.draw do
 
   get 'tracks/autocomplete', to: 'posts#autocomplete'
   get 'users/:id/chat', to: 'users#chat', as: :chat
+  get "/search", to: "searches#index", as: :search
 end

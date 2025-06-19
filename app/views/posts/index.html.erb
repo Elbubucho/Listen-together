@@ -1,9 +1,30 @@
+
 <%= render "shared/posts_filter" %>
 <div>
   <%= link_to "💬", rooms_path %>
   <%= turbo_stream_from "message_#{current_user.id}_indicator", id: "message_indicator_stream" %>
   <%= render "notifications/message_indicator", user: current_user %>
 </div>
+
+<% content_for :meta_title, "Listen Together – Share music with your friends" %>
+<% content_for :meta_description, "Discover your friends' music, share your moods with a music that matches it, and explore new musics every day." %> 
+<% content_for :meta_image, "logo-together.png" %>
+                     
+<div class="flex justify-end px-4 mt-2 mb-0">
+  <div class="dropdown dropdown-end">
+    <div tabindex="0" role="button" class="btn bg-base-200 text-base-content border border-base-300 hover:bg-base-200 hover:border-primary hover:text-primary-content flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707L15 13v4.586a1 1 0 01-.293.707l-2 2A1 1 0 0111 20v-7L5.293 7.293A1 1 0 015 6.586V4z" />
+      </svg>
+      Filters
+    </div>
+
+    <div tabindex="0" class="dropdown-content z-[100] mt-3 px-0 pt-4 pb-4 shadow bg-base-200 rounded-box w-[300px] max-h-[80vh] overflow-y-auto overflow-x-hidden border border-base-300 flex justify-center">
+      <%= render "shared/posts_filter" %>
+    </div>
+  </div>
+</div>
+
 <div class="min-h-screen bg-base-100 py-5 px-4 sm:px-0">
   <div class="flex flex-col gap-6">
     <% if @posts.any? %>
@@ -27,25 +48,16 @@
 
           <div class="card-actions justify-start w-full mt-4 flex items-center space-x-4 px-1">
             <%= render partial: "reactions/button", locals: { post: post } %>
-
-            <%= link_to post_path(post.id), class: "text-primary" do %>
+            <%= link_to post_path(post.id), class: "comment-button flex content-end text-primary hover:scale-110 transition" do %>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                   viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                  class="w-6 h-6 hover:scale-110 transition">
+                  class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round"
                     d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
               </svg>
+              <span class="text-base ms-1"><%= post.comments.count %></span>
             <% end %>
           </div>
-          <% if post.user == current_user %>
-            <div class="absolute top-2 right-2">
-              <%= button_to post_path(post), method: :delete, data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, class: "text-error hover:text-red-700 transition" do %>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              <% end %>
-            </div>
-          <% end %>
         </div>
       </div>
     <% end %>
