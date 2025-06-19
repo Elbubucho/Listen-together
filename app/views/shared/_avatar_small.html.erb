@@ -1,0 +1,13 @@
+    <% if user.avatar.attached? %>
+    <div class="avatar">
+      <div class="w-9 rounded-full">
+        <%= cl_image_tag user.avatar.key %> />
+      </div>
+    </div>
+    <% else %>
+    <div class="avatar">
+      <div class="w-9 rounded-full">
+        <%= image_tag "default_avatar.png"%>
+      </div>
+    </div>
+    <% end %>

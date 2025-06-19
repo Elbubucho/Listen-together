@@ -8,5 +8,8 @@
     <% end %>
     <time class="text-xs opacity-50"><%= time_ago_in_words(message.created_at) %></time>
   </div>
-  <div class="chat-bubble text-white"><%= message.body %></div>
+  <div class="chat-bubble text-white break-all max-w-full">
+  <%= message.body %>
+</div>
+
 </div>

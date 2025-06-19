@@ -45,17 +45,13 @@ class FriendshipsController < ApplicationController
     @friendship = Friendship.find(params[:id])
 
     if @friendship.asker == current_user || @friendship.receiver == current_user
-      message =
-        if @friendship.confirmed?
-          "Friendship removed."
-        elsif @friendship.asker == current_user
-          "Friend request cancelled."
-        else
-          "Friend request declined."
-        end
-
+      @friend_user = @friendship.other_user(current_user)
       @friendship.destroy
-      render json: { message: message }
+
+      respond_to do |format|
+        format.turbo_stream 
+        format.html { redirect_to friends_user_path(current_user), notice: "Friendship removed." }
+      end
     else
       render json: { error: "Unauthorized action." }, status: :unauthorized
     end

@@ -1,5 +1,7 @@
-<%= button_to "Unfriend",
+<turbo-frame id="friendship_#{friendship.id}">
+    <%= button_to "Unfriend",
               friendship_path(friendship),
               method: :delete,
-              data: { confirm: "Are you sure you want to remove #{friend.username.capitalize} from your friends?" },
+              data: { turbo_confirm: "Are you sure you want to remove #{friend.username.capitalize} from your friends?" },
               class: "btn btn-error btn-xs" %>
+</turbo-frame>
