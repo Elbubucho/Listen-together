@@ -1,6 +1,6 @@
 <%= render "shared/posts_filter" %>
 <div>
-  <%= link_to "💬", rooms_path %>
+  <%= link_to "💬", rooms_path, data: { turbo: false } %>
   <%= turbo_stream_from "message_#{current_user.id}_indicator", id: "message_indicator_stream" %>
   <%= render "notifications/message_indicator", user: current_user %>
 </div>
