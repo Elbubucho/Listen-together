@@ -9,6 +9,7 @@ class MessageNotification < Noticed::Base
 
   # On attend un paramètre :message (chaîne de caractères)
   param :message
+  param :room_id
 
   # Après la livraison, nous diffusons la notification via Turbo Streams
   after_deliver :broadcast_notification

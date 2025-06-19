@@ -3,7 +3,7 @@ class NotificationsController < ApplicationController
 
   def index
     @notifications = current_user.notifications
-      .where.not(type: "message")
+      .where.not(type: "MessageNotification")
       .order(created_at: :desc)
     @notifications.mark_as_read!
   end

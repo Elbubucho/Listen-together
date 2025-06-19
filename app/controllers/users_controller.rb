@@ -58,6 +58,13 @@ class UsersController < ApplicationController
 
     @message = Message.new
     @messages = @single_room.messages.order(created_at: :asc)
+
+    @notifications = current_user.notifications
+    .where(type: "MessageNotification")
+    .where("params ->> 'room_id' = ?", @single_room.id.to_s)
+    .unread
+
+    @notifications.mark_as_read!
     render "rooms/show"
   end
 

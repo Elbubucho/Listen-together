@@ -7,7 +7,6 @@ class Message < ApplicationRecord
     notify_receiver_user
     update_parent_room
     broadcast_append_to room
-
   end
 
   def confirm_participant
@@ -22,7 +21,7 @@ class Message < ApplicationRecord
 
   def notify_receiver_user
     room.participants.where.not(user_id: user_id).each do |participant|
-    MessageNotification.with(message: self.body).deliver(participant.user)
+    MessageNotification.with(message: self.body, room_id: room.id).deliver(participant.user)
   end
   end
 end

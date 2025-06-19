@@ -1,4 +1,4 @@
-<% unread_count = user.notifications.unread.count %>
+<% unread_count = user.notifications.where.not(type: "MessageNotification").unread.count %>
 <% if unread_count.positive? %>
   <span class="indicator-item w-4 h-4 rounded-full bg-base-100 border border-base-300"></span>
 <% end %>

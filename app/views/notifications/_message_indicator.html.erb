@@ -1,4 +1,4 @@
-<% unread_messages = user.notifications.unread.where(type: "MessageNotification").count %>
+<% unread_messages = user.notifications.where(type: "MessageNotification").unread.count %>
 <% if unread_messages.positive? %>
  <span class="badge badge-xs badge-primary indicator-item"></span></span>
 <% end %>
