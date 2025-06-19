@@ -1,56 +1,26 @@
 <div class="navbar bg-base-200 w-full py-0 border-b">
-  <div class="navbar-start">
-    <div class="dropdown">
-      <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round"
-                d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </div>
-      <ul
-        tabindex="0"
-        class="menu menu-sm dropdown-content bg-base-200 rounded-box z-1 mt-5 w-52 p-2 shadow">
-        <li><%= link_to "My profil", user_path(current_user) %></li>
-        <li><%= link_to "Account settings",  edit_user_registration_path(current_user) %></li>
-        <li><%= button_to 'Sign out', destroy_user_session_path, method: :delete, form: { data: { turbo: false } } %></li>
-      </ul>
-    </div>
+  <div class="navbar-start pl-2">
+    <%= button_to destroy_user_session_path, method: :delete,
+        form: { data: { turbo: false } },
+        class: "btn btn-ghost btn-circle" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3-3H9m0 0l3-3m-3 3l3 3" />
+      </svg>
+    <% end %>
   </div>
+
   <div class="navbar-center">
     <%= link_to root_path do %>
       <%= image_tag "logo-listen.png", alt: "Logo", class: "h-[80px] w-auto mx-auto" %>
     <% end %>
   </div>
-  <div class="navbar-end">
-    <div data-controller="toggle-search" class="relative">
-      <button data-action="click->toggle-search#toggle" class="btn btn-ghost btn-circle">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
-      </button>
-      <div data-toggle-search-target="container" class="absolute right-0 top-12 hidden">
-        <div data-controller="user-search" class="relative">
-          <input
-            type="text"
-            placeholder="Search users..."
-            data-user-search-target="input"
-            data-action="input->user-search#search"
-            class="input input-sm input-bordered w-48"
-          />
-          <div data-user-search-target="results" class="absolute z-50 bg-base-200 mt-1 rounded shadow w-full"></div>
-        </div>
-      </div>
-    </div>
-    <button class="btn btn-ghost btn-circle">
-      <div class="indicator" id="notification-indicator">
-        <%= link_to notifications_path do %>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />  </svg>
-        <% end %>
-        <%= turbo_stream_from "notifications_#{current_user.id}_indicator", id: "notification_indicator_stream" %>
-        <%= render "notifications/notification_indicator", user: current_user %>
-      </div>
-    </button>
+
+  <div class="navbar-end pr-2">
+    <%= link_to search_path, class: "btn btn-ghost btn-circle" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+    <% end %>
   </div>
 </div>
 
@@ -60,11 +30,16 @@
     <div class="pl-3">
       <%= link_to posts_path, class: "flex items-center justify-center" do %>
         <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round"
-            d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
         </svg>
       <% end %>
     </div>
+
+    <%= link_to rooms_path, class: "flex items-center justify-center" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
+      </svg>
+    <% end %>
 
     <%= link_to new_post_path, class: "bg-white text-primary rounded-full p-2 shadow-md hover:scale-110 transition" do %>
       <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -72,9 +47,22 @@
       </svg>
     <% end %>
 
+    <div class="flex items-center justify-center">
+      <%= link_to notifications_path do %>
+        <div class="indicator">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+          </svg>
+
+          <%= turbo_stream_from "notifications_#{current_user.id}_indicator", id: "notification_indicator_stream" %>
+          <%= render "notifications/notification_indicator", user: current_user %>
+        </div>
+      <% end %>
+    </div>
+
     <div class="pr-3">
       <%= link_to user_path(current_user), class: "flex items-center justify-center" do %>
-        <%= render "shared/avatar", user: current_user, class: "w-7 h-7 rounded-full border border-white" %>
+        <%= render "shared/avatar", user: current_user, class: "w-6 h-6 rounded-full border border-white" %>
       <% end %>
     </div>
 

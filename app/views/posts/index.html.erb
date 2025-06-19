@@ -1,9 +1,22 @@
 <% content_for :meta_title, "Listen Together – Share music with your friends" %>
 <% content_for :meta_description, "Discover your friends' music, share your moods with a music that matches it, and explore new musics every day." %> 
 <% content_for :meta_image, "logo-together.png" %>
+                     
+<div class="flex justify-end px-4 mt-2 mb-0">
+  <div class="dropdown dropdown-end">
+    <div tabindex="0" role="button" class="btn bg-base-200 text-base-content border border-base-300 hover:bg-base-200 hover:border-primary hover:text-primary-content flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707L15 13v4.586a1 1 0 01-.293.707l-2 2A1 1 0 0111 20v-7L5.293 7.293A1 1 0 015 6.586V4z" />
+      </svg>
+      Filters
+    </div>
 
-<%= render "shared/posts_filter" %>
-<%= link_to "💬", rooms_path %>
+    <div tabindex="0" class="dropdown-content z-[100] mt-3 px-0 pt-4 pb-4 shadow bg-base-200 rounded-box w-[300px] max-h-[80vh] overflow-y-auto overflow-x-hidden border border-base-300 flex justify-center">
+      <%= render "shared/posts_filter" %>
+    </div>
+  </div>
+</div>
+
 <div class="min-h-screen bg-base-100 py-5 px-4 sm:px-0">
   <div class="flex flex-col gap-6">
     <% if @posts.any? %>
