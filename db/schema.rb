@@ -132,7 +132,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_05_210742) do
   create_table "reactions", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "post_id", null: false
-    t.boolean "confirmed", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_reactions_on_post_id"
