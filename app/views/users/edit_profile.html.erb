@@ -17,17 +17,19 @@
         <%= f.input :username,
                     required: true,
                     autofocus: true,
-                    input_html: { autocomplete: "new-username"},
-                    class: "input input-bordered w-full"%>
+                    input_html: {
+                      autocomplete: "new-username",
+                      class: "input w-full border border-gray-700"
+                    } %>
       </div>
 
       <div class="mb-4">
-      <%= render 'shared/image_preview', form: f %>
+        <%= render 'shared/image_preview', form: f, input_class: "w-full border border-gray-700" %>
       </div>
 
       <div class="mb-4">
         <%= f.label :bio %>
-        <%= f.text_area :bio, class: "textarea textarea-bordered w-full" %>
+        <%= f.text_area :bio, class: "w-full border border-gray-700 rounded-xl px-3 py-2" %>
       </div>
 
     </div>
